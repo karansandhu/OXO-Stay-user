@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/_300sdp"
+    android:id="@+id/bottom_sheet"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@color/colorBlack"
+    app:behavior_hideable="true"
+    app:behavior_peekHeight="@dimen/_300sdp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_date"
+        android:textColor="@color/colorWhite"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:fontFamily="@font/roboto_regular"
+        android:textSize="16sp"
+        />
+
+<!--    <com.applandeo.materialcalendarview.CalendarView-->
+<!--        android:id="@+id/calendarView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:pagesColor="@color/colorAppYellow"-->
+<!--        app:headerColor="@color/colorAppYellow"-->
+<!--        app:type="many_days_picker"/>-->
+
+</LinearLayout>
