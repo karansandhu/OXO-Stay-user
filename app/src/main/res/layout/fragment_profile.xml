@@ -123,7 +123,8 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_offers"
@@ -212,6 +213,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_terms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -348,6 +350,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -393,6 +396,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_change_pass"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -439,6 +443,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/rl_logout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_20sdp">

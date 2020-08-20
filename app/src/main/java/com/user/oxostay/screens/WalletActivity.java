@@ -10,26 +10,26 @@ import android.widget.ImageView;
 
 import com.user.oxostay.R;
 import com.user.oxostay.adapter.LocationAdapter;
+import com.user.oxostay.adapter.WalletAdapter;
 
 import java.util.ArrayList;
 
-public class LocationActivity extends AppCompatActivity {
+public class WalletActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView_locations;
-    LocationAdapter locationAdapter;
+    RecyclerView recyclerView_wallet;
+    WalletAdapter walletAdapter;
     ArrayList<String> citiesList;
     ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_location);
+        setContentView(R.layout.activity_wallet);
 
         initView();
     }
-
     public void initView(){
-        recyclerView_locations = (RecyclerView) findViewById(R.id.recyclerView_locations);
+        recyclerView_wallet = (RecyclerView) findViewById(R.id.recyclerView_wallet);
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,22 +39,22 @@ public class LocationActivity extends AppCompatActivity {
         });
         citiesList = new ArrayList<>();
         PutData();
-        locationAdapter = new LocationAdapter(citiesList,this);
-        recyclerView_locations.setHasFixedSize(true);
-        recyclerView_locations.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView_locations.setAdapter(locationAdapter);
+        walletAdapter = new WalletAdapter(citiesList,this);
+        recyclerView_wallet.setHasFixedSize(true);
+        recyclerView_wallet.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView_wallet.setAdapter(walletAdapter);
     }
 
     public void PutData(){
-        citiesList.add("Delhi");
-        citiesList.add("Mumbai");
-        citiesList.add("Gurugram");
-        citiesList.add("Punjab");
-        citiesList.add("Chandigarh");
-        citiesList.add("Gujrat");
-        citiesList.add("Delhi");
-        citiesList.add("Surat");
-        citiesList.add("Faridabad");
+        citiesList.add("Rs 200");
+        citiesList.add("Rs 581");
+        citiesList.add("Rs 456");
+        citiesList.add("Rs 696");
+        citiesList.add("Rs 985");
+        citiesList.add("Rs 1222");
+        citiesList.add("Rs 2587");
+        citiesList.add("Rs 1455");
+        citiesList.add("Rs 658");
     }
 
 }

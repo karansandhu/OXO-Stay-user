@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBlack"
+    android:paddingTop="@dimen/_10sdp"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_wallet_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12.Aug.2020"
+        android:textSize="14sp"
+        android:layout_marginLeft="@dimen/_15sdp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/colorWhite"
+        android:fontFamily="@font/roboto_thin"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:id="@+id/tv_wallet_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Approved"
+        android:layout_marginRight="@dimen/_12sdp"
+        android:layout_toRightOf="@+id/tv_wallet_date"
+        android:layout_toLeftOf="@+id/tv_wallet_amount"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="14sp"
+        android:textColor="@color/colorWhite"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/roboto_thin"/>
+    <TextView
+        android:id="@+id/tv_wallet_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/_25sdp"
+        android:text="1245"
+        android:layout_alignParentRight="true"
+        android:textSize="14sp"
+        android:textColor="@color/colorWhite"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/roboto_regular"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="@color/colorAppYellow"
+        android:layout_below="@+id/tv_wallet_amount"
+        android:layout_marginTop="@dimen/_10sdp"/>
+
+</RelativeLayout>

@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 <!--    <include layout="@layout/toolbar"-->
 <!--        android:id="@+id/main_toolbar"/>-->
@@ -18,8 +19,12 @@
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:background="@color/colorBlack"
         android:layout_alignParentBottom="true"
+        app:tabSelectedTextColor="@color/colorBlack"
+        app:tabBackground="@drawable/tab_bg"
+        app:tabTextColor="@color/colorWhite"
+        app:tabMode="fixed"
+        android:scrollbars="none"
         />
 
 </RelativeLayout>

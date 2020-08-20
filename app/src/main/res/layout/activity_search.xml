@@ -23,8 +23,8 @@
 
         <ImageView
             android:id="@+id/iv_back"
-            android:layout_width="@dimen/_22sdp"
-            android:layout_height="@dimen/_22sdp"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
             android:layout_gravity="center"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_15sdp"
@@ -289,6 +289,29 @@
                 android:fontFamily="@font/roboto_regular" />
 
         </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_time_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_slots"
+            android:layout_marginLeft="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_20sdp"
+            android:background="@color/colorAppLightYellow"
+            android:layout_marginTop="@dimen/_10sdp">
+
+            <TextView
+                android:id="@+id/tv_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="11:00 AM"
+                android:layout_margin="@dimen/_10sdp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorBlack"
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto_bold"/>
+
+        </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_search_now"

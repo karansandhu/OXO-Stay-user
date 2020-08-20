@@ -14,9 +14,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
+        android:textColor="@color/colorWhite"
         android:layout_marginTop="@dimen/_3sdp"
         android:textSize="@dimen/_10sdp"
-        android:textColor="@color/colorWhite"
         android:singleLine="true"
         />
 </LinearLayout>

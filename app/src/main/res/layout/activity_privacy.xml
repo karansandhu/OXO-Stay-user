@@ -4,35 +4,51 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAppYellow"
     tools:context=".screens.PrivacyActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:background="@color/colorBlack">
 
-    <TextView
-        android:id="@+id/tv_privacy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/privacy_policy"
-        android:textColor="@color/colorBlack"
-        android:textSize="18sp"
-        android:fontFamily="@font/roboto_bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/_10sdp"
-        android:layout_marginRight="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_15sdp"
-        android:layout_gravity="center"
-        android:gravity="center"/>
+        <RelativeLayout
+            android:id="@+id/rl_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_45sdp"
+            android:background="@color/colorAppYellow">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:layout_marginLeft="@dimen/_15sdp"
+            android:src="@drawable/ic_left_arrow"/>
+
+            <TextView
+                android:id="@+id/tv_privacy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/privacy_policy"
+                android:textColor="@color/colorBlack"
+                android:textSize="18sp"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:layout_gravity="center"
+                android:gravity="center"/>
+
+        </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rl_data"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:background="@drawable/round_bg"
-        android:layout_below="@+id/tv_privacy"
+        android:background="@color/colorBlack"
+        android:layout_below="@+id/rl_toolbar"
         android:paddingTop="@dimen/_10sdp"
         android:paddingLeft="@dimen/_20sdp"
         android:paddingRight="@dimen/_20sdp">
@@ -84,6 +100,57 @@ This Privacy Policy does not apply to the third-party online/mobile store from w
             android:textColor="@color/colorWhite" />
 
     </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:background="@color/colorAppLightYellow"
+            android:layout_below="@+id/rl_data">
+
+            <TextView
+                android:id="@+id/tv_footer_two"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:text="@string/for_any_issues"
+                android:fontFamily="@font/roboto_bold"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:textColor="@color/colorBlack"/>
+
+            <LinearLayout
+                android:id="@+id/ll_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/_5sdp"
+                android:paddingBottom="@dimen/_5sdp"
+                android:layout_marginLeft="@dimen/_30sdp"
+                android:layout_marginRight="@dimen/_30sdp"
+                android:layout_below="@+id/tv_footer_two"
+                android:layout_marginBottom="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:background="@drawable/footer_bg">
+
+                <TextView
+                    android:id="@+id/tv_footer_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:text="+91-848451884"
+                    android:fontFamily="@font/roboto_bold"
+                    android:textColor="@color/colorBlack"/>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </RelativeLayout>
 

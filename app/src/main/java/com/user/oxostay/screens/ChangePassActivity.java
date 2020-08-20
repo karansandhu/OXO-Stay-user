@@ -8,18 +8,19 @@ import android.widget.ImageView;
 
 import com.user.oxostay.R;
 
-public class PrivacyActivity extends AppCompatActivity {
+public class ChangePassActivity extends AppCompatActivity {
 
     ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_privacy);
+        setContentView(R.layout.activity_change_pass);
+
+        initView();
     }
 
     public void initView(){
-
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override

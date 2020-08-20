@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.user.oxostay.R;
 import com.user.oxostay.adapter.HotelListAdapter;
@@ -17,6 +19,7 @@ public class HotelListActivity extends AppCompatActivity {
     RecyclerView recyclerView_hotels;
     HotelListAdapter hotelListAdapter;
     ArrayList<String> hotelList;
+    ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,13 @@ public class HotelListActivity extends AppCompatActivity {
     public void initView(){
 
         recyclerView_hotels = (RecyclerView) findViewById(R.id.recyclerView_hotels);
+        iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
         hotelList = new ArrayList<>();
         PutData();
         hotelListAdapter = new HotelListAdapter(hotelList,this);

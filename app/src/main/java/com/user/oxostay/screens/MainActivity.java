@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
                 new PagerAdapter(getSupportFragmentManager(), MainActivity.this);
 //        viewPager.setAdapter(pagerAdapter);
 //        tabLayout.setupWithViewPager(viewPager);
-
-        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.colorWhite));
-        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAppLightYellow));
+//        tabLayout.setTabTextColors(R.color.colorWhite, R.color.colorBlack);
+//        tabLayout.setTabTextColors(ContextCompat.getColorStateList(this, R.color.colorWhite));
+//        tabLayout.setSelectedTabIndicatorColor(ContextCompat.getColor(this, R.color.colorAppLightYellow));
         setupViewPager(viewPager);
         tabLayout.setupWithViewPager(viewPager);
         setupTabIcons();
@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
     private void setupTabIcons() {
 
         tabLayout.getTabAt(0).setCustomView(getTabView(tabLayout.getContext(), R.drawable.home_icon,"Home"));
-        tabLayout.getTabAt(1).setCustomView(getTabView(tabLayout.getContext(), R.drawable.home_icon,"points"));
-        tabLayout.getTabAt(2).setCustomView(getTabView(tabLayout.getContext(), R.drawable.home_icon,"Add Offer"));
-        tabLayout.getTabAt(3).setCustomView(getTabView(tabLayout.getContext(), R.drawable.home_icon,"History"));
+        tabLayout.getTabAt(1).setCustomView(getTabView(tabLayout.getContext(), R.drawable.fav_icon,"Favourite"));
+        tabLayout.getTabAt(2).setCustomView(getTabView(tabLayout.getContext(), R.drawable.booking_icon,"Bookings"));
+        tabLayout.getTabAt(3).setCustomView(getTabView(tabLayout.getContext(), R.drawable.profile_icon,"Profile"));
 
 
 
@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView ivTab = (ImageView) tab.findViewById(R.id.ivTab);
         ivTab.setImageResource(icon);
         tv.setText(text);
+//        tv.setTextColor(R.color.colorBlack);
         return tab;
     }
 //    class PagerAdapter extends FragmentPagerAdapter {
