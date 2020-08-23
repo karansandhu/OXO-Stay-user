@@ -22,17 +22,36 @@
         android:layout_gravity="center"
         android:gravity="center"/>
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="96dp"
-        android:layout_below="@+id/tv_prfile"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_centerHorizontal="true"
-        android:layout_height="96dp"
-        android:src="@drawable/profile_pic_two"
-        app:civ_border_width="2dp"
-        app:civ_border_color="#FF000000"/>
+        <RelativeLayout
+            android:id="@+id/rl_profile_pic"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_below="@+id/tv_prfile">
+
+            <ImageView
+                android:id="@+id/iv_profile_edit"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:src="@drawable/ic_edit"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_alignParentBottom="true"
+                android:visibility="gone"
+                android:layout_alignParentLeft="true"
+                />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_image"
+                android:layout_width="96dp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="96dp"
+                android:src="@drawable/profile_pic_two"
+                app:civ_border_width="2dp"
+                app:civ_border_color="#FF000000"/>
+
+        </RelativeLayout>
 
     <TextView
         android:id="@+id/tv_username"
@@ -41,7 +60,7 @@
         android:text="Nitish"
         android:textColor="@color/colorBlack"
         android:textSize="16sp"
-        android:layout_below="@+id/profile_image"
+        android:layout_below="@+id/rl_profile_pic"
         android:fontFamily="@font/roboto_bold"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/_15sdp"
@@ -398,7 +417,8 @@
             <RelativeLayout
                 android:id="@+id/rl_change_pass"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/iv_pass"

@@ -44,9 +44,9 @@
         </RelativeLayout>
 
         <ImageView
+            android:id="@+id/iv_offers_poster"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_140sdp"
-            android:src="@drawable/offer_poster"
             android:scaleType="centerCrop"/>
 
         <TextView

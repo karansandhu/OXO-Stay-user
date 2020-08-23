@@ -8,4 +8,17 @@
     <color name="colorBlack">#000000</color>
     <color name="colorLightGrey">#C4C4C4</color>
     <color name="colorWhite">#ffffff</color>
+
+    <array name="array_dot_active">
+        <item>@color/colorAppYellow</item>
+        <item>@color/colorAppYellow</item>
+        <item>@color/colorAppYellow</item>
+    </array>
+
+    <array name="array_dot_inactive">
+        <item>@color/colorBlack</item>
+        <item>@color/colorBlack</item>
+        <item>@color/colorBlack</item>
+    </array>
+
 </resources>

@@ -55,9 +55,9 @@
                 android:backgroundTint="@null"/>
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/eye"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_cursor"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>

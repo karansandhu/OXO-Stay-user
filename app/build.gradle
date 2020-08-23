@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -30,6 +31,7 @@ dependencies {
     implementation 'com.google.android.material:material:1.0.0-alpha3'
     implementation 'androidx.cardview:cardview:1.0.0-alpha3'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'cc.cloudist.acplibrary:library:1.2.1'
 
     implementation('com.philliphsu:bottomsheetpickers:2.4.1') {
         exclude group: 'com.android.support', module: 'appcompat-v7'
@@ -41,9 +43,15 @@ dependencies {
 //    implementation 'com.android.support:gridlayout-v7:[LATEST_VERSION]'
 
     // Standard -- not recommended!
-    compile 'com.philliphsu:bottomsheetpickers:2.4.1'
+    implementation 'com.philliphsu:bottomsheetpickers:2.4.1'
+
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
 //    implementation 'com.akexorcist:snap-time-picker:1.0.0'
+    implementation 'com.google.firebase:firebase-auth:16.0.5'
+    implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-storage:16.0.4'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

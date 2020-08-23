@@ -10,14 +10,18 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.user.oxostay.R;
 import com.user.oxostay.adapter.FragmentAdapter;
+import com.user.oxostay.utils.PrefManager;
 
 import java.util.ArrayList;
 
@@ -27,12 +31,19 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     private PagerAdapter pagerAdapter;
     ArrayList<Fragment> fragments;
+    FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        PrefManager prefManager = new PrefManager(getApplicationContext());
+        if(prefManager.isFirstTimeLaunch()){
+            Log.e("checkIntro","main>>");
+            prefManager.setFirstTimeLaunch(false);
+            startActivity(new Intent(MainActivity.this, WelcomeActivity.class));
+            finish();
+        }
         initView();
 //        FragmentAdapter pagerAdapter = new FragmentAdapter(getSupportFragmentManager(), getApplicationContext(), fragments);
 //        viewPager.setAdapter(pagerAdapter);
@@ -47,6 +58,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void initView(){
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        Log.e("checkUSer",">>" + user);
+        if (user != null) {
+            // User is signed in
+//            Intent i = new Intent(MainActivity.this, MainActivity.class);
+//            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//            startActivity(i);
+        } else {
+            // User is signed out
+            Intent i = new Intent(MainActivity.this, LoginActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+            Log.e("LOGIN", "onAuthStateChanged:signed_out");
+        }
+
+
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         tabLayout = (TabLayout) findViewById(R.id.sliding_tabs);
 
