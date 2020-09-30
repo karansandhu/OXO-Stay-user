@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorAppYellow"
     android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
     <TextView
         android:layout_width="wrap_content"
@@ -40,19 +45,19 @@
             android:layout_below="@+id/tv_search">
 
             <EditText
+                android:id="@+id/et_fav_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/edittext_bg"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:paddingLeft="@dimen/_5sdp"
-                android:editable="false"
-                android:clickable="true"
                 android:backgroundTint="@null"/>
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/eye"
+                android:visibility="gone"
                 android:layout_marginRight="@dimen/_15sdp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"/>
@@ -66,15 +71,13 @@
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/_10sdp"
         android:background="@drawable/round_bg"
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingLeft="@dimen/_20sdp"
-        android:paddingRight="@dimen/_20sdp">
+        android:paddingTop="@dimen/_10sdp">
 
         <TextView
             android:id="@+id/tv_fav_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Showing 2 results"
+            android:text=""
             android:textColor="@color/colorWhite"
             android:textSize="14sp"
             android:fontFamily="@font/roboto_thin"
@@ -89,6 +92,6 @@
             android:layout_marginTop="@dimen/_7sdp"
             android:layout_below="@+id/tv_fav_result"/>
 
-    </RelativeLayout>
-
-</LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

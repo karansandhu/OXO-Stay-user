@@ -10,8 +10,7 @@
         android:id="@+id/iv_hotel_pic"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/hotel_image_one"/>
+        android:scaleType="centerCrop"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -47,6 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_address"
             android:layout_marginTop="@dimen/_3sdp"
+            android:visibility="gone"
             android:orientation="horizontal">
 
 
@@ -72,6 +72,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/rl_prices"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/ll_pri"
@@ -80,7 +81,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_three"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/ic_rates_bg">
 
@@ -93,9 +94,10 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_thin"
                     android:textColor="@color/colorBlack"
-                    android:textSize="8sp"/>
+                    android:textSize="10sp"/>
 
                 <TextView
+                    android:id="@+id/tv_3_hr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="699"
@@ -109,7 +111,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_six"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@drawable/ic_rates_bg">
@@ -123,9 +125,10 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_thin"
                     android:textColor="@color/colorBlack"
-                    android:textSize="8sp"/>
+                    android:textSize="10sp"/>
 
                 <TextView
+                    android:id="@+id/tv_6_hr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1100"
@@ -139,7 +142,7 @@
 
             <RelativeLayout
                 android:id="@+id/rl_twelve"
-                android:layout_width="@dimen/_60sdp"
+                android:layout_width="@dimen/_65sdp"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_5sdp"
                 android:background="@drawable/ic_rates_bg"
@@ -154,9 +157,10 @@
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/roboto_thin"
                     android:textColor="@color/colorBlack"
-                    android:textSize="8sp"/>
+                    android:textSize="10sp"/>
 
                 <TextView
+                    android:id="@+id/tv_12_hr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1700"

@@ -9,25 +9,31 @@ import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.Resource;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.user.oxostay.R;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class SearchActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener{
 
     BottomSheetBehavior bottomSheetBehavior;
-    TextView tv_another_day,tv_time;
+    TextView tv_another_day,tv_time,tv_today;
     RelativeLayout rl_search_now,rl_time_picker;
-    ImageView iv_back;
+    ImageView iv_back,iv_edit;
+    EditText et_city_name;
+    String location,location_id,today_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +44,13 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
     }
 
     public void initView(){
+        Intent intent = getIntent();
+        location = intent.getStringExtra("location");
+        location_id = intent.getStringExtra("location_id");
         LinearLayout bottomSheetLayout = findViewById(R.id.bottom_sheet);
+        et_city_name = (EditText) findViewById(R.id.et_city_name);
         iv_back = (ImageView) findViewById(R.id.iv_back);
+        iv_edit = (ImageView) findViewById(R.id.iv_edit);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,11 +58,21 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
             }
         });
         tv_another_day = (TextView) findViewById(R.id.tv_another_day);
+        tv_today = (TextView) findViewById(R.id.tv_today);
         tv_time = (TextView) findViewById(R.id.tv_time);
         rl_search_now = (RelativeLayout) findViewById(R.id.rl_search_now);
+        et_city_name.setText(location);
         rl_time_picker = (RelativeLayout) findViewById(R.id.rl_time_picker);
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
 
+        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
+        iv_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent1 = new Intent(SearchActivity.this,LocationActivity.class);
+                startActivity(intent1);
+                finish();
+            }
+        });
         bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 switch (newState) {
@@ -97,12 +118,42 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SearchActivity.this,HotelListActivity.class);
+                intent.putExtra("date",today_date);
+                intent.putExtra("location",location);
+                intent.putExtra("time",tv_time.getText().toString());
                 startActivity(intent);
+            }
+        });
+        tv_today.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Date today = new Date();
+                SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss a");
+                today_date = format.format(today);
+                Log.e("checkTodaysDate",">>" + today_date);
+
+                if (tv_today.getBackground().equals(R.color.colorAppLightYellow)){
+
+                    tv_today.setBackgroundResource(R.color.colorWhite);
+                    tv_another_day.setBackgroundResource(R.color.colorAppLightYellow);
+                }else{
+                    tv_today.setBackgroundResource(R.color.colorAppLightYellow);
+                    tv_another_day.setBackgroundResource(R.color.colorWhite);
+                }
             }
         });
         tv_another_day.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
                 Log.e("checkBottonSheet", ": " + bottomSheetBehavior.getState());
+                if (tv_another_day.getBackground().equals(R.color.colorAppLightYellow)){
+
+                    tv_another_day.setBackgroundResource(R.color.colorWhite);
+                    tv_today.setBackgroundResource(R.color.colorAppLightYellow);
+//                    tv_another_day.setBackgroundResource(R.color.colorAppLightYellow);
+                }else{
+                    tv_another_day.setBackgroundResource(R.color.colorAppLightYellow);
+                    tv_today.setBackgroundResource(R.color.colorWhite);
+                }
 //                if (bottomSheetBehavior.getState() != BottomSheetBehavior.STATE_EXPANDED) {
                     bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
 //                    toggleBottomSheet.setText("Collapse BottomSheet");

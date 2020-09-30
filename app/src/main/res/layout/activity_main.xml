@@ -8,18 +8,34 @@
 <!--    <include layout="@layout/toolbar"-->
 <!--        android:id="@+id/main_toolbar"/>-->
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager"
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/sliding_tabs"
-        android:background="@color/colorWhite"/>
+        android:layout_above="@+id/sliding_tabs">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/sliding_tabs">
+
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"/>
+
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/sliding_tabs"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
         android:layout_alignParentBottom="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
         app:tabSelectedTextColor="@color/colorBlack"
         app:tabBackground="@drawable/tab_bg"
         app:tabTextColor="@color/colorWhite"

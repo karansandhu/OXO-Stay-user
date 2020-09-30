@@ -25,11 +25,13 @@
             android:src="@drawable/ic_left_arrow"/>
 
         <EditText
+            android:id="@+id/et_city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:layout_centerVertical="true"
             android:paddingLeft="@dimen/_5sdp"
+            android:inputType="textCapWords"
             android:paddingRight="@dimen/_10sdp"
             android:layout_toRightOf="@+id/iv_back"
             android:background="@null"

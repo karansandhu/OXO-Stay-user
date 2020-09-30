@@ -10,8 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
->
+        android:orientation="vertical">
+
 <!--    <com.google.android.material.appbar.AppBarLayout-->
 <!--        android:id="@+id/app_bar"-->
 <!--        android:layout_width="match_parent"-->
@@ -34,12 +34,41 @@
 <!--        android:layout_marginLeft="@dimen/_15sdp"-->
 <!--        android:src="@drawable/ic_left_arrow"/>-->
 
-    <ImageView
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/cv_slider_mainActivity"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_margin="16dp"-->
+<!--            app:cardCornerRadius="8dp">-->
+
+            <com.smarteist.autoimageslider.SliderView
+                android:id="@+id/imageSlider"
+                android:layout_width="match_parent"
+                android:layout_height="350dp"
+                app:sliderAnimationDuration="600"
+                app:sliderAutoCycleDirection="back_and_forth"
+                app:sliderIndicatorAnimationDuration="600"
+                app:sliderIndicatorEnabled="true"
+                app:sliderIndicatorGravity="center_horizontal|bottom"
+                app:sliderIndicatorMargin="15dp"
+                app:sliderIndicatorOrientation="horizontal"
+                app:sliderIndicatorPadding="3dp"
+                app:sliderIndicatorRadius="2dp"
+                app:sliderIndicatorSelectedColor="#5A5A5A"
+                app:sliderIndicatorUnselectedColor="#FFF"
+                app:sliderScrollTimeInSec="1" />
+
+<!--        </androidx.cardview.widget.CardView>-->
+
+
+        <ImageView
         android:id="@+id/iv_banner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_200sdp"
         android:src="@drawable/hotel_image_one"
         android:layout_alignParentTop="true"
+            android:visibility="gone"
         android:scaleType="centerCrop"/>
 <!--    </com.google.android.material.appbar.CollapsingToolbarLayout>-->
 
@@ -48,7 +77,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="-80dp"
+        android:layout_marginTop="-160dp"
         android:background="@drawable/round_bg"
         android:paddingTop="@dimen/_10sdp">
         
@@ -70,6 +99,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_hotelname"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Hotel Sundance"
@@ -79,6 +109,7 @@
                         android:fontFamily="@font/roboto_regular"/>
 
                     <RatingBar
+                        android:id="@+id/ratingbar"
                         android:layout_gravity="center"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -94,6 +125,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_hoteladress"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sector 35, chandigarh"
@@ -103,6 +135,7 @@
                         android:fontFamily="@font/roboto_thin"/>
 
                     <TextView
+                        android:id="@+id/tv_hotelrating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="4.5"
@@ -120,6 +153,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/tv_hotelrate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rs 3000"
@@ -153,10 +187,18 @@
                     android:textColor="@color/colorWhite"
                     android:fontFamily="@font/roboto_thin"/>
 
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+                    android:layout_marginTop="@dimen/_10sdp"/>
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_12sdp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -255,6 +297,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <LinearLayout
@@ -357,6 +400,7 @@
                     android:background="@color/colorAppYellow"/>
 
                 <TextView
+                    android:id="@+id/tv_hoteldesc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged."
@@ -381,11 +425,59 @@
                     android:fontFamily="@font/roboto_thin"/>
 
                 <ImageView
+                    android:id="@+id/iv_map"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_120sdp"
                     android:src="@drawable/map"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:scaleType="centerCrop"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_map"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:orientation="vertical"
+                    >
+
+                <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:map="http://schemas.android.com/apk/res-auto"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_120sdp"
+                    tools:context=".screens.MapssActivity" />
+
+                    <LinearLayout
+                        android:id="@+id/ll_directions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        android:background="@color/colorTransLightGrey"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_hoteldirect"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Get Directions to your destination"
+                            android:textColor="@color/colorAppYellow"
+                            android:textSize="12sp"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_marginTop="@dimen/_3sdp"
+                            android:fontFamily="@font/roboto_thin"/>
+
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_margin="@dimen/_3sdp"
+                            android:src="@drawable/ic_directions"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

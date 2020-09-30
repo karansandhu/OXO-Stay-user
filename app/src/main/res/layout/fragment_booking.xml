@@ -69,6 +69,14 @@
 
     </LinearLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Coming Soon!"
+        android:textSize="18sp"
+        android:fontFamily="@font/roboto_bold"
+        android:layout_centerInParent="true"
+        android:textColor="@color/colorBlack"/>
 
 
 </RelativeLayout>

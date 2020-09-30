@@ -45,7 +45,7 @@ public class BookingFragment extends Fragment {
         recyclerView_fav = (RecyclerView) view.findViewById(R.id.recyclerView_fav);
         hotelList = new ArrayList<>();
         PutData();
-        favouriteAdapter = new FavouriteAdapter(hotelList,getActivity());
+//        favouriteAdapter = new FavouriteAdapter(hotelList,getActivity());
         recyclerView_fav.setHasFixedSize(true);
         recyclerView_fav.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_fav.setAdapter(favouriteAdapter);

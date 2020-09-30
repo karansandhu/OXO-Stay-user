@@ -2,6 +2,7 @@ package com.user.oxostay.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +14,17 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.user.oxostay.R;
+import com.user.oxostay.models.Location;
 import com.user.oxostay.screens.SearchActivity;
 
 import java.util.ArrayList;
 
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder>{
-        private ArrayList<String> listdata;
+        private ArrayList<Location> listdata;
         private Context context;
 
     // RecyclerView recyclerView;
-        public LocationAdapter(ArrayList<String> listdata, Context context) {
+        public LocationAdapter(ArrayList<Location> listdata, Context context) {
                 this.listdata = listdata;
                 this.context = context;
                 }
@@ -37,11 +39,15 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
 //        final ArrayList<String> myListData = listdata[position];
-                holder.tv_location_name.setText(listdata.get(position));
+            final Location location = listdata.get(position);
+                holder.tv_location_name.setText(location.getCity_name());
                 holder.rl_location.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(context, SearchActivity.class);
+                        intent.putExtra("location",location.getCity_name());
+                        intent.putExtra("location_id",location.getCity_id());
+                        Log.e("checkLocation",">>" + location.getCity_name());
                         context.startActivity(intent);
                     }
                     });

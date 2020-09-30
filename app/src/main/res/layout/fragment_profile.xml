@@ -31,13 +31,12 @@
 
             <ImageView
                 android:id="@+id/iv_profile_edit"
-                android:layout_width="@dimen/_16sdp"
-                android:layout_height="@dimen/_16sdp"
-                android:src="@drawable/ic_edit"
+                android:layout_width="@dimen/_18sdp"
+                android:layout_height="@dimen/_18sdp"
+                android:src="@drawable/ic_pencil"
                 android:layout_marginTop="@dimen/_20sdp"
                 android:layout_alignParentBottom="true"
-                android:visibility="gone"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 />
 
             <de.hdodenhof.circleimageview.CircleImageView
@@ -96,6 +95,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/rl_faq"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -187,6 +187,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_support"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -324,6 +325,7 @@
 
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/rl_aboutus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

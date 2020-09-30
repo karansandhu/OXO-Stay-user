@@ -49,7 +49,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
-    RelativeLayout rl_privacy,rl_terms,rl_change_pass,rl_logout,rl_wallet;
+    RelativeLayout rl_privacy,rl_terms,rl_change_pass,rl_logout,rl_wallet,rl_aboutus,rl_faq,rl_support;
     FirebaseAuth mAuth;
     ImageView profile_image;
     private Uri filePath;
@@ -95,8 +95,32 @@ public class ProfileFragment extends Fragment {
         rl_privacy = (RelativeLayout) view.findViewById(R.id.rl_privacy);
         rl_wallet = (RelativeLayout) view.findViewById(R.id.rl_wallet);
         rl_logout = (RelativeLayout) view.findViewById(R.id.rl_logout);
+        rl_aboutus = (RelativeLayout) view.findViewById(R.id.rl_aboutus);
+        rl_faq = (RelativeLayout) view.findViewById(R.id.rl_faq);
+        rl_support = (RelativeLayout) view.findViewById(R.id.rl_support);
         rl_terms = (RelativeLayout) view.findViewById(R.id.rl_terms);
         rl_change_pass = (RelativeLayout) view.findViewById(R.id.rl_change_pass);
+
+        rl_support.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Coming soon!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        rl_faq.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Coming soon!!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        rl_aboutus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Coming soon!!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         user_id = mAuth.getCurrentUser().getUid();
 
@@ -252,11 +276,11 @@ public class ProfileFragment extends Fragment {
                                         public void onSuccess(Uri downloadUrl)
                                         {
                                             baseActivity.dismissLoader();
-                                            Toast
-                                                    .makeText(getActivity(),
-                                                            "Image Uploaded!!" + downloadUrl,
-                                                            Toast.LENGTH_SHORT)
-                                                    .show();
+//                                            Toast
+//                                                    .makeText(getActivity(),
+//                                                            "Image Uploaded!!" + downloadUrl,
+//                                                            Toast.LENGTH_SHORT)
+//                                                    .show();
                                             User user = new User();
                                             user.setName(user_name);
                                             user.setMobile_no(user_no);
