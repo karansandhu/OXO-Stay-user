@@ -47,6 +47,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:paddingBottom="@dimen/_3sdp"
+                android:inputType="textCapWords"
                 android:paddingLeft="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_40sdp"/>
 

@@ -99,6 +99,7 @@
                 android:background="@drawable/edittext_bg"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:paddingBottom="@dimen/_8sdp"
+                android:inputType="textCapWords"
                 android:paddingLeft="@dimen/_5sdp"
                 android:backgroundTint="@null"/>
 

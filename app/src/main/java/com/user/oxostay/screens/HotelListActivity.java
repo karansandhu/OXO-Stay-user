@@ -7,8 +7,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.user.oxostay.R;
+import com.user.oxostay.adapter.FavouriteAdapter;
 import com.user.oxostay.adapter.HotelListAdapter;
 import com.user.oxostay.adapter.LocationAdapter;
 import com.user.oxostay.models.ApprovedModel;
@@ -31,6 +35,7 @@ public class HotelListActivity extends AppCompatActivity {
     RecyclerView recyclerView_hotels;
     HotelListAdapter hotelListAdapter;
     ArrayList<ApprovedModel> hotelList;
+    EditText et_location;
     ImageView iv_back;
     String time,location,date;
     FirebaseDatabase database;
@@ -55,6 +60,7 @@ public class HotelListActivity extends AppCompatActivity {
         time = intent.getStringExtra("time");
         date = intent.getStringExtra("date");
         recyclerView_hotels = (RecyclerView) findViewById(R.id.recyclerView_hotels);
+        et_location = (EditText) findViewById(R.id.et_location);
         tv_result = (TextView) findViewById(R.id.tv_result);
         recyclerView_hotels.setHasFixedSize(true);
         recyclerView_hotels.setLayoutManager(new LinearLayoutManager(this));
@@ -67,9 +73,54 @@ public class HotelListActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-//        PutData();
 
-//        Query query = ref.orderByChild("city_name").startAt(date.toString()).endAt(date.toString() + "\uf8ff");
+        et_location.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+
+                DatabaseReference dateRef = rootRef.child("oxostaypartner").child("hotelsapproved");
+                Query query = dateRef.orderByChild("hotel_name").startAt(charSequence.toString()).endAt(charSequence.toString() + "\uf8ff");
+                Log.e("checkQuery",">>" + dateRef);
+
+                query.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        hotelList.clear();
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+
+                            ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
+                            hotelList.add(upload);
+                            Log.e("checkQuery","11>>" + postSnapshot.toString());
+                        }
+                        hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
+
+                        Log.e("checkQuery","final>>" + hotelList.toString());
+                        tv_result.setText("Showing " + hotelList.size() + " results");
+                        recyclerView_hotels.setAdapter(hotelListAdapter);
+                        hotelListAdapter.notifyDataSetChanged();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+
         Log.e("checkQuery","Hotel List>>" + ref);
         hotelListAdapter = new HotelListAdapter(hotelList,this);
 

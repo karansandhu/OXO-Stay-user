@@ -97,7 +97,7 @@ public class FavouriteFragment extends Fragment {
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
                 DatabaseReference dateRef = rootRef.child("oxostaypartner").child("hotelsapproved");
-                Query query = dateRef.orderByChild("fullName").startAt(charSequence.toString()).endAt(charSequence.toString() + "\uf8ff");
+                Query query = dateRef.orderByChild("hotel_name").startAt(charSequence.toString()).endAt(charSequence.toString() + "\uf8ff");
                 Log.e("checkQuery",">>" + dateRef);
 
                 query.addValueEventListener(new ValueEventListener() {

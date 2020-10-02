@@ -49,7 +49,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class ProfileFragment extends Fragment {
 
-    RelativeLayout rl_privacy,rl_terms,rl_change_pass,rl_logout,rl_wallet,rl_aboutus,rl_faq,rl_support;
+    RelativeLayout rl_privacy,rl_terms,rl_change_pass,rl_logout,rl_wallet,rl_aboutus,rl_faq,rl_support,rl_profile_pic;
     FirebaseAuth mAuth;
     ImageView profile_image;
     private Uri filePath;
@@ -98,6 +98,7 @@ public class ProfileFragment extends Fragment {
         rl_aboutus = (RelativeLayout) view.findViewById(R.id.rl_aboutus);
         rl_faq = (RelativeLayout) view.findViewById(R.id.rl_faq);
         rl_support = (RelativeLayout) view.findViewById(R.id.rl_support);
+        rl_profile_pic = (RelativeLayout) view.findViewById(R.id.rl_profile_pic);
         rl_terms = (RelativeLayout) view.findViewById(R.id.rl_terms);
         rl_change_pass = (RelativeLayout) view.findViewById(R.id.rl_change_pass);
 
@@ -123,7 +124,7 @@ public class ProfileFragment extends Fragment {
         });
 
         user_id = mAuth.getCurrentUser().getUid();
-
+Log.e("checkUSerId",">>" + user_id);
         dataRef = database.getReference().child("oxostayuser").child("users").child(user_id);
 
         dataRef.addValueEventListener(new ValueEventListener() {
@@ -134,9 +135,13 @@ public class ProfileFragment extends Fragment {
                 user_no = user.getMobile_no();
                 user_profile_pic = user.getProfile_pic();
 
-                tv_username.setText(user_name);
-                tv_username_no.setText(user_no);
-                Glide.with(getActivity()).load(user_profile_pic).into(profile_image);
+                try {
+                    tv_username.setText(user_name);
+                    tv_username_no.setText(user_no);
+                    Glide.with(getActivity()).load(user_profile_pic).into(profile_image);
+                }catch (Exception e){
+
+                }
             }
 
             @Override
@@ -145,7 +150,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        profile_image.setOnClickListener(new View.OnClickListener() {
+        rl_profile_pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

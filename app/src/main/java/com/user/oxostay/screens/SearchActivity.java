@@ -149,7 +149,6 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
 
                     tv_another_day.setBackgroundResource(R.color.colorWhite);
                     tv_today.setBackgroundResource(R.color.colorAppLightYellow);
-//                    tv_another_day.setBackgroundResource(R.color.colorAppLightYellow);
                 }else{
                     tv_another_day.setBackgroundResource(R.color.colorAppLightYellow);
                     tv_today.setBackgroundResource(R.color.colorWhite);
@@ -165,6 +164,8 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
         });
 
     }
+
+
 
     @Override
     public void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute) {

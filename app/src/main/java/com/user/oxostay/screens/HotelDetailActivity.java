@@ -102,6 +102,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         hotel_rating = intent.getStringExtra("hotel_rating");
         hotel_rate = intent.getStringExtra("hotel_rate");
         hotel_amenities_list = intent.getStringArrayListExtra("hotel_amenities");
+        Log.e("checkNameo",">>" + hotel_name);
 //        String[] imageList = hotel_imgs.split(",");
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -116,25 +117,31 @@ public class HotelDetailActivity extends AppCompatActivity {
                     hotel_amenities_list_ids.add(upload.getId());
                 }
 
-                for (int i=0; i < hotel_amenities_list.size(); i++){
-                    if(hotel_amenities_list_ids.contains(hotel_amenities_list.get(i))){
-                        final_amenities.add(hotel_amenities_list_ids.get(i));
-                        //do something for equals
-                    }else{
-                        //do something for not equals
-                        int index = hotel_amenities_list_ids.indexOf(hotel_amenities_list.get(i));
-                        hotel_amenities_list_ids.remove(index);
+                try {
+
+                    Log.e("checkFinalAmeerror",">>" + hotel_amenities_list + "><><" + hotel_amenities_list_ids);
+                    for (int i=0; i < hotel_amenities_list.size(); i++){
+                        if(hotel_amenities_list_ids.contains(hotel_amenities_list.get(i))){
+                            final_amenities.add(hotel_amenities_list_ids.get(i));
+                            //do something for equals
+                        }else{
+                            //do something for not equals
+                            int index = hotel_amenities_list_ids.indexOf(hotel_amenities_list.get(i));
+                            hotel_amenities_list_ids.remove(index);
+                        }
                     }
-                }
 
-                Log.e("checkFinalAme",">>" + final_amenities);
+                    Log.e("checkFinalAme",">>" + final_amenities);
 
-                for (int i=0; i < hotel_amenities_list.size(); i++) {
-                   if (hotel_amenities_list_two.get(i).getId().contains(hotel_amenities_list_ids.get(i))){
-                       hotel_ame_image.add(hotel_amenities_list_two.get(i).getAmenitiesImage());
-                       hotel_ame_name.add(hotel_amenities_list_two.get(i).getAmenetiesLabel());
-                       Log.e("checkImageNow",">>" + hotel_amenities_list_two.get(i).getAmenitiesImage());
-                   }
+                    for (int i=0; i < hotel_amenities_list.size(); i++) {
+                        if (hotel_amenities_list_two.get(i).getId().contains(hotel_amenities_list_ids.get(i))){
+                            hotel_ame_image.add(hotel_amenities_list_two.get(i).getAmenitiesImage());
+                            hotel_ame_name.add(hotel_amenities_list_two.get(i).getAmenetiesLabel());
+                            Log.e("checkImageNow",">>" + hotel_amenities_list_two.get(i).getAmenitiesImage());
+                        }
+                    }
+                }catch (Exception e){
+
                 }
 
             }
@@ -158,7 +165,7 @@ public class HotelDetailActivity extends AppCompatActivity {
 //                gridview.setAdapter(new GridViewAdapter(HotelDetailActivity.this,hotel_ame_image,hotel_ame_name));
                 baseActivity.dismissLoader();
             }
-        }, 2000);
+        }, 1000);
 
 //        for(int i=0;i<imageList.length;i++){
 //            sliderItemList.add(imageList[1]);
@@ -170,7 +177,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         tv_hotelname.setText(hotel_name);
         tv_hoteladress.setText(hotel_address);
         tv_hoteldesc.setText(hotel_desc);
-        tv_hotelrate.setText(hotel_rate);
+        tv_hotelrate.setText("Rs " + hotel_rate);
         tv_hotelrating.setText(hotel_rating);
 
         sliderView = findViewById(R.id.imageSlider);

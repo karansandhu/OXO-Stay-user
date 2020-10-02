@@ -34,7 +34,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     public int getCount() {
 //        return amenitiesImageList.size();
-        return amenitiesImageList == null ? 0 : amenitiesImageList.size();
+        Log.e("checkFianll","getCount>>" + amenitiesLabelList.size() + ">>" + amenitiesImageList.size());
+        return amenitiesLabelList == null ? 0 : amenitiesImageList.size();
     }
 
     public Object getItem(int position) {
@@ -47,22 +48,8 @@ public class GridViewAdapter extends BaseAdapter {
 
     // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
-//        ImageView imageView;
-//
-//        if (convertView == null) {
-//            imageView = new ImageView(mContext);
-//            imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
-//            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-//            imageView.setPadding(8, 8, 8, 8);
-//        }
-//        else
-//        {
-//            imageView = (ImageView) convertView;
-//        }
-//        Log.e("CheckFinalAmeNa","<>" + amenitiesLabelList.get(position));
-//        imageView.setImageResource(Integer.parseInt(amenitiesImageList.get(position)));
-//        return imageView;
-        Log.e("checkFianll",">>" + amenitiesLabelList.get(position));
+
+        Log.e("checkFianll","getView>>" + amenitiesLabelList.get(position) + ">>" + amenitiesImageList.get(position));
 
         if (layoutInflater==null) {
             layoutInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
