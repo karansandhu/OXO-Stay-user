@@ -39,28 +39,33 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
     @Override
     public void onBindViewHolder(FavouriteAdapter.ViewHolder holder, int position) {
 //        final ArrayList<String> myListData = listdata[position];
-        final ApprovedModel approvedModel = listdata.get(position);
-        holder.tv_hotel_name.setText(approvedModel.getHotel_name());
-        holder.tv_address.setText(approvedModel.getHotel_address());
-        holder.tv_3_hr.setText(approvedModel.getRoom_rate_3_hour());
-        holder.tv_6_hr.setText(approvedModel.getRoom_rate_6_hour());
-        holder.tv_12_hr.setText(approvedModel.getRoom_rate_12_hour());
-        Log.e("debugAmenities","hotel adapter>>" + approvedModel.getHotel_images().get(0).toString());
-        Glide.with(context).load(approvedModel.getHotel_images().get(0)).into(holder.iv_hotel_pic);
-        holder.rl_prices.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, HotelDetailActivity.class);
-                intent.putExtra("images_array",approvedModel.getHotel_images());
-                intent.putExtra("hotel_name",approvedModel.getHotel_name());
-                intent.putExtra("hotel_address",approvedModel.getHotel_address());
-                intent.putExtra("hotel_rating",approvedModel.getHotel_rating());
-                intent.putExtra("hotel_rate",approvedModel.getRoom_rate_3_hour());
-                intent.putExtra("hotel_amenities",approvedModel.getAmenities());
-                intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
-                context.startActivity(intent);
-            }
-        });
+
+        try {
+
+            final ApprovedModel approvedModel = listdata.get(position);
+            holder.tv_hotel_name.setText(approvedModel.getHotel_name());
+            holder.tv_address.setText(approvedModel.getHotel_address());
+            holder.tv_3_hr.setText(approvedModel.getRoom_rate_3_hour());
+            holder.tv_6_hr.setText(approvedModel.getRoom_rate_6_hour());
+            holder.tv_12_hr.setText(approvedModel.getRoom_rate_12_hour());
+            Glide.with(context).load(approvedModel.getHotel_images().get(0)).into(holder.iv_hotel_pic);
+            holder.rl_prices.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, HotelDetailActivity.class);
+                    intent.putExtra("images_array",approvedModel.getHotel_images());
+                    intent.putExtra("hotel_name",approvedModel.getHotel_name());
+                    intent.putExtra("hotel_address",approvedModel.getHotel_address());
+                    intent.putExtra("hotel_rating",approvedModel.getHotel_rating());
+                    intent.putExtra("hotel_rate",approvedModel.getRoom_rate_3_hour());
+                    intent.putExtra("hotel_amenities",approvedModel.getAmenities());
+                    intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
+                    context.startActivity(intent);
+                }
+            });
+        }catch (Exception e){
+
+        }
     }
 
     @Override

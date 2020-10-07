@@ -15,6 +15,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +47,7 @@ public class HotelDetailActivity extends AppCompatActivity {
     ImageView iv_banner,iv_map;
     TextView tv_hotelname,tv_hoteladress,tv_hotelrating,tv_hotelrate,tv_hoteldesc,tv_hoteldirect;
     RatingBar ratingbar;
+    RelativeLayout rl_continue_booking;
     LinearLayout ll_map,ll_directions;
     Fragment map;
     ArrayList<String> hotel_pic_list,hotel_amenities_list,hotel_amenities_list_ids,final_amenities,hotel_ame_image,hotel_ame_name;
@@ -80,6 +82,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         hotel_amenities_list_ids = new ArrayList<>();
 
         ll_map = (LinearLayout) findViewById(R.id.ll_map);
+        rl_continue_booking = (RelativeLayout) findViewById(R.id.rl_continue_booking);
         ll_directions = (LinearLayout) findViewById(R.id.ll_directions);
         iv_banner = (ImageView) findViewById(R.id.iv_banner);
         iv_map = (ImageView) findViewById(R.id.iv_map);
@@ -104,6 +107,15 @@ public class HotelDetailActivity extends AppCompatActivity {
         hotel_amenities_list = intent.getStringArrayListExtra("hotel_amenities");
         Log.e("checkNameo",">>" + hotel_name);
 //        String[] imageList = hotel_imgs.split(",");
+
+        rl_continue_booking.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent1 = new Intent(HotelDetailActivity.this,PaymentActivity.class);
+                startActivity(intent1);
+            }
+        });
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override

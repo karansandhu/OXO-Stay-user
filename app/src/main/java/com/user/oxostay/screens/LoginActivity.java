@@ -1,5 +1,6 @@
 package com.user.oxostay.screens;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -18,9 +19,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.user.oxostay.R;
+import com.user.oxostay.adapter.LocationAdapter;
 import com.user.oxostay.common.BaseActivity;
+import com.user.oxostay.models.Location;
 
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 import cc.cloudist.acplibrary.ACProgressConstant;
@@ -33,9 +42,13 @@ public class LoginActivity extends AppCompatActivity {
     RelativeLayout rl_pass;
     EditText et_login_no;
     private FirebaseAuth mAuth;
+    FirebaseDatabase database;
+    ArrayList<String> mobileList;
+    DatabaseReference ref;
     String mVerificationId;
     String status;
     BaseActivity baseActivity;
+    String mobile_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +59,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void initView(){
+        database = FirebaseDatabase.getInstance();
+        ref = database.getReference().child("oxostayuser").child("users");
         baseActivity = new BaseActivity();
+        mobileList = new ArrayList<>();
         mAuth = FirebaseAuth.getInstance();
         try {
             baseActivity.dismissLoader();
@@ -92,6 +108,39 @@ public class LoginActivity extends AppCompatActivity {
 
                 baseActivity.showLoader(LoginActivity.this);
                 Log.e("checkOTPFlow","onClick>>" + et_login_no.getText().toString());
+
+//                ref.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//
+//                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+////                    approvedModelsIds.add(dataSnapshot1.getKey());
+//                            mobile_no = dataSnapshot1.child("mobile_no").getValue(String.class);
+//                            mobileList.add(mobile_no);
+//                            if (et_login_no.getText().toString().equals(mobile_no)){
+////                                sendVerificationCode(et_login_no.getText().toString());
+//                            }else{
+//                                baseActivity.dismissLoader();
+//                                Toast.makeText(LoginActivity.this, "Please register first", Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//
+//                        if (mobileList.contains(mobile_no)){
+//
+//                            Log.e("checkKeyNames","IF>>" + mobile_no);
+//                        }
+//                        mobile_no = "";
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+
+
+//                if (et_login_no.getText().toString())
+
                 sendVerificationCode(et_login_no.getText().toString());
 
             }
@@ -110,6 +159,10 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    public void getDataFirebase(){
+
+
+    }
 
     private void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
