@@ -29,15 +29,15 @@ import java.util.ArrayList;
 
 public class LocationActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView_locations;
-    LocationAdapter locationAdapter;
-    EditText et_city;
-    ArrayList<String> citiesList;
-    ImageView iv_back;
-    BaseActivity baseActivity;
-    FirebaseDatabase database;
-    DatabaseReference ref;
-    ArrayList<Location> approvedModels;
+    private RecyclerView recyclerView_locations;
+    private LocationAdapter locationAdapter;
+    private EditText et_city;
+    private ArrayList<String> citiesList;
+    private ImageView iv_back;
+    private BaseActivity baseActivity;
+    private FirebaseDatabase database;
+    private DatabaseReference ref;
+    private ArrayList<Location> approvedModels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

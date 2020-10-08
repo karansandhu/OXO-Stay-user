@@ -3,6 +3,7 @@ package com.user.oxostay.screens;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -25,15 +26,16 @@ import com.user.oxostay.R;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener{
 
-    BottomSheetBehavior bottomSheetBehavior;
-    TextView tv_another_day,tv_time,tv_today;
-    RelativeLayout rl_search_now,rl_time_picker;
-    ImageView iv_back,iv_edit;
-    EditText et_city_name;
-    String location,location_id,today_date;
+    private BottomSheetBehavior bottomSheetBehavior;
+    private TextView tv_another_day,tv_time,tv_today;
+    private RelativeLayout rl_search_now,rl_time_picker;
+    private ImageView iv_back,iv_edit;
+    private EditText et_city_name;
+    private String location,location_id,today_date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +144,17 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
                 }
             }
         });
+
+        final Calendar myCalendar = Calendar.getInstance();
         tv_another_day.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View view) {
+                final DatePickerDialog.OnDateSetListener date2 = (view, year, monthOfYear, dayOfMonth) -> {
+                    // TODO Auto-generated method stub
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    String month = myCalendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.getDefault());
+                };
                 Log.e("checkBottonSheet", ": " + bottomSheetBehavior.getState());
                 if (tv_another_day.getBackground().equals(R.color.colorAppLightYellow)){
 

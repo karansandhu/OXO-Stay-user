@@ -47,6 +47,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
                         Intent intent = new Intent(context, SearchActivity.class);
                         intent.putExtra("location",location.getCity_name());
                         intent.putExtra("location_id",location.getCity_id());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         Log.e("checkLocation",">>" + location.getCity_name());
                         context.startActivity(intent);
                     }
