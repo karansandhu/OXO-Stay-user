@@ -35,6 +35,8 @@
     <string name="send_otp">Send OTP</string>
     <string name="otp">OTP</string>
     <string name="previous">Previous</string>
+    <string name="about_the_program">About the Program</string>
+    <string name="refer_earn">Refer and Earn</string>
     <string name="support">Support</string>
     <string name="current_offers">Current Offers</string>
     <string name="how_to_current_offers">How to avail your Current Offers</string>
@@ -52,9 +54,16 @@
     <string name="amount">Amount</string>
     <string name="skip">Skip</string>
     <string name="next">Next</string>
+    <string name="how_to_avail">How to Avail</string>
     <string name="enviroment_sanitisation">Environment Sanitization: </string>
     <string name="staff_training">Staff Training</string>
-    <string name="house_keeping">\u25CF  House-keeping and service staff to wear masks and gloves at all times</string>
+    <string name="program_lines_one">\u25CF  Download the OXOStay app</string>
+    <string name="program_lines_two">\u25CF  Share your referral code with your friends</string>
+    <string name="program_lines_three">\u25CF  Your friend registers using the referral code</string>
+    <string name="program_line_one">\u25CF  Refer a friend and get 500 OXOStay credits to your account</string>
+    <string name="program_line_two">\u25CF  OXOStay Credits will be valid for 90 days</string>
+    <string name="program_line_three">\u25CF  Referral credits can only be used on Mobile App</string>
+\    <string name="house_keeping">\u25CF  House-keeping and service staff to wear masks and gloves at all times</string>
     <string name="staff_train">\u25CF  Staff is trained at least twice a week on social distancing, hand hygiene and thermal temperature checks</string>
     <string name="staff_temp">\u25CF  Temperature checks for staff twice a day</string>
     <string name="rooms_dis">\u25CF  Rooms Disinfection- rooms are disinfected daily as per guidelines mentioned by WHO</string>

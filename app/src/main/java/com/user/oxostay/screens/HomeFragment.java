@@ -18,7 +18,7 @@ import com.user.oxostay.R;
 public class HomeFragment extends Fragment {
 
     RelativeLayout rl_Search;
-    ImageView iv_latest_offer,iv_covid;
+    ImageView iv_latest_offer,iv_covid,iv_tv_refer_earn;
     EditText et_searchh;
 
     @Nullable
@@ -34,6 +34,7 @@ public class HomeFragment extends Fragment {
         rl_Search = (RelativeLayout) view.findViewById(R.id.rl_Search);
         et_searchh = (EditText) view.findViewById(R.id.et_searchh);
         iv_latest_offer = (ImageView) view.findViewById(R.id.iv_latest_offer);
+        iv_tv_refer_earn = (ImageView) view.findViewById(R.id.iv_tv_refer_earn);
         iv_covid = (ImageView) view.findViewById(R.id.iv_covid);
         et_searchh.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,14 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent intent = new Intent(getContext(),CovidGuidelinesActivity.class);
+                startActivity(intent);
+            }
+        });
+        iv_tv_refer_earn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(getContext(),ReferralActivity.class);
                 startActivity(intent);
             }
         });

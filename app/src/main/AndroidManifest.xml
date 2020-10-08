@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".screens.OTPActivity" />
+        <activity android:name=".screens.ReferralActivity" />
         <activity android:name=".screens.OffersActivity" />
         <activity android:name=".screens.WalletActivity" />
         <activity android:name=".screens.ChangePassActivity" />

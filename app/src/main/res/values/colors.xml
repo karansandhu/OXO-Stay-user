@@ -8,6 +8,7 @@
     <color name="colorBlack">#000000</color>
     <color name="colorLightGrey">#C4C4C4</color>
     <color name="colorTransLightGrey">#61939393</color>
+    <color name="colorTransDarkGrey">#61373737</color>
     <color name="colorWhite">#ffffff</color>
 
     <array name="array_dot_active">
