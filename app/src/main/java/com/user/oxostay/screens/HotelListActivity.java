@@ -30,6 +30,7 @@ import com.user.oxostay.models.Location;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class HotelListActivity extends AppCompatActivity {
@@ -59,15 +60,21 @@ public class HotelListActivity extends AppCompatActivity {
         ref = database.getReference().child("oxostaypartner").child("hotelsapproved");
 
         hotelList = new ArrayList<>();
-        Intent intent = getIntent();
-        time = intent.getStringExtra("time");
-        Intentdate = intent.getStringExtra("date");
+        if(getIntent() != null)
+        {
+            Intent intent = getIntent();
+            time = intent.getStringExtra("time");
+            Log.e(TAG, "initView: "+time);
+            Intentdate = intent.getStringExtra("date");
+            location = intent.getStringExtra("location");
+
+        }
+
         recyclerView_hotels = (RecyclerView) findViewById(R.id.recyclerView_hotels);
         et_location = (EditText) findViewById(R.id.et_location);
         tv_result = (TextView) findViewById(R.id.tv_result);
         recyclerView_hotels.setHasFixedSize(true);
         recyclerView_hotels.setLayoutManager(new LinearLayoutManager(this));
-        location = intent.getStringExtra("location");
         iv_back = (ImageView) findViewById(R.id.iv_back);
         iv_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,9 +138,14 @@ public class HotelListActivity extends AppCompatActivity {
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                         ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
+                        if(!upload.getDate_from().equalsIgnoreCase("Select Date") && !upload.getDate_to().equalsIgnoreCase("Select Date"))
+                        {
+
                         String subMonthFrom = "";
                         String subMonthTo = "";
 
+
+                        /**Date Comparison**/
                         if(upload.getDate_from().contains(" ")){
                             subMonthFrom = upload.getDate_from().substring(0, upload.getDate_from().indexOf(" "));
                         }
@@ -141,7 +153,6 @@ public class HotelListActivity extends AppCompatActivity {
                         {
                             subMonthTo = upload.getDate_to().substring(0, upload.getDate_to().indexOf(" "));
                         }
-
 
                         String subDateFrom = upload.getDate_from().substring(subMonthFrom.length()+1, upload.getDate_from().indexOf(","));
                         String[] subYearFrom = upload.getDate_from().split(",");
@@ -170,25 +181,25 @@ public class HotelListActivity extends AppCompatActivity {
                         SimpleDateFormat intentDate = new SimpleDateFormat("yyyy-MM-dd");
                         Date dateIntent = intentDate.parse(Intentdate);
 
-
-//                        Log.e(TAG, "onDataChange: \nSelected Date: "+dateIntent+"\n Date From: "+dateFrom+"\n Date To: "+dateTo);
                         if(dateIntent.after(dateFrom) && dateIntent.before(dateTo))
                         {
-                            Log.e(TAG, "onDataChange: matched");
-                            hotelList.add(upload);
+                            if(Integer.parseInt(upload.getRooms_available()) > 0)
+                            {
+                                hotelList.add(upload);
+                            }
+                        }
 
-                        }
-                        else
-                        {
-                            Log.e(TAG, "onDataChange: not matched");
-                        }
+
+                        /**End of Date comparison**/
                     }
                     hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
                     tv_result.setText("Showing " + hotelList.size() + " results");
                     recyclerView_hotels.setAdapter(hotelListAdapter);
                     hotelListAdapter.notifyDataSetChanged();
 
+                    }
                 }catch (Exception e){
+                    e.printStackTrace();
 
                 }
             }

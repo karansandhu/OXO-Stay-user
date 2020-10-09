@@ -30,6 +30,7 @@ import java.util.Locale;
 
 public class SearchActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener {
 
+    private static final String TAG = "SearchActivity";
     private BottomSheetBehavior bottomSheetBehavior;
     private TextView tv_another_day, tv_time, tv_today;
     private RelativeLayout rl_search_now, rl_time_picker;
@@ -214,6 +215,7 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
         cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
         cal.set(Calendar.MINUTE, minute);
         tv_time.setText(DateFormat.getTimeFormat(this).format(cal.getTime()));
+        Log.e(TAG, "onTimeSet: "+cal.getTime());
 //        Toast.makeText(this, "Time set: " + DateFormat.getTimeFormat(this).format(cal.getTime()), Toast.LENGTH_SHORT).show();
     }
 }
