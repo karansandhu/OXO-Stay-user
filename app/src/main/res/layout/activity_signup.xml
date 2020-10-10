@@ -126,6 +126,30 @@
                 android:inputType="number"
                 android:paddingBottom="@dimen/_8sdp"
                 android:backgroundTint="@null"/>
+
+            <TextView
+                android:id="@+id/tv_ref"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_ref_code"
+                android:textSize="14sp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_below="@+id/iv_login_head"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/roboto_regular"
+                android:textColor="@color/colorWhite"/>
+
+            <EditText
+                android:id="@+id/enter_ref_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:paddingLeft="@dimen/_5sdp"
+                android:inputType="number"
+                android:paddingBottom="@dimen/_8sdp"
+                android:backgroundTint="@null"/>
             <TextView
 
                 android:id="@+id/tv_password"

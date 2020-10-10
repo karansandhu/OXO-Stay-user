@@ -53,10 +53,13 @@
     <string name="status">Status</string>
     <string name="amount">Amount</string>
     <string name="skip">Skip</string>
+    <string name="share_using">Skip</string>
     <string name="next">Next</string>
+    <string name="enter_ref_code">Referral Code</string>
     <string name="how_to_avail">How to Avail</string>
     <string name="enviroment_sanitisation">Environment Sanitization: </string>
     <string name="staff_training">Staff Training</string>
+    <string name="refer">Send invite</string>
     <string name="program_lines_one">\u25CF  Download the OXOStay app</string>
     <string name="program_lines_two">\u25CF  Share your referral code with your friends</string>
     <string name="program_lines_three">\u25CF  Your friend registers using the referral code</string>

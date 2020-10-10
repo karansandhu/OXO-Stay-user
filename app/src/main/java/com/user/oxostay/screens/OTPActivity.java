@@ -3,7 +3,9 @@ package com.user.oxostay.screens;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +26,7 @@ import com.user.oxostay.models.User;
 
 public class OTPActivity extends AppCompatActivity {
 
-    String mobile_no,mVerificationId,code,name;
+    String mobile_no,mVerificationId,code,name,ref_code,user_ref_code;
     private FirebaseAuth mAuth;
     String act;
     FirebaseDatabase database;
@@ -38,6 +40,10 @@ public class OTPActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
         Intent intent = getIntent();
+        if (!intent.getStringExtra("user_ref_code").equals("")){
+            user_ref_code = intent.getStringExtra("user_ref_code");
+        }
+        ref_code = intent.getStringExtra("ref_code");
         mobile_no = intent.getStringExtra("mobile");
         mVerificationId = intent.getStringExtra("mVerificationId");
         code = intent.getStringExtra("code");
@@ -75,8 +81,14 @@ public class OTPActivity extends AppCompatActivity {
                                 user.setName(name);
                                 user.setMobile_no(mobile_no);
                                 user.setProfile_pic("");
+                                user.setRef_code(ref_code);
                                 Log.e("checkSignupData",">>" + user);
-
+                                SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedpreferences.edit();
+                                editor.putString("ref_code", ref_code);
+                                editor.putString("user_name", name);
+                                editor.putString("user_no", mobile_no);
+                                editor.commit();
                                 ref.child("oxostayuser").child("users").child(mAuth.getCurrentUser().getUid()).setValue(user);
 
                                 Intent intent = new Intent(OTPActivity.this, MainActivity.class);

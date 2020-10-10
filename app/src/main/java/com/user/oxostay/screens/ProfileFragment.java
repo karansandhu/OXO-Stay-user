@@ -1,7 +1,9 @@
 package com.user.oxostay.screens;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -53,7 +55,7 @@ public class ProfileFragment extends Fragment {
     FirebaseAuth mAuth;
     ImageView profile_image;
     private Uri filePath;
-    String user_id,user_name,user_no,user_profile_pic;
+    String user_id,user_name,user_no,user_profile_pic,ref_code;
     TextView tv_username,tv_username_no;
 
     BaseActivity baseActivity;
@@ -133,8 +135,14 @@ Log.e("checkUSerId",">>" + user_id);
                 User user = dataSnapshot.getValue(User.class);
                 user_name = user.getName();
                 user_no = user.getMobile_no();
+                ref_code = user.getRef_code();
                 user_profile_pic = user.getProfile_pic();
-
+                SharedPreferences sharedpreferences = getActivity().getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+                editor.putString("ref_code", ref_code);
+                editor.putString("user_name", user_name);
+                editor.putString("user_no", user_no);
+                editor.commit();
                 try {
                     tv_username.setText(user_name);
                     tv_username_no.setText(user_no);

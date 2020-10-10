@@ -54,6 +54,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HotelDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("images_array",approvedModel.getHotel_images());
                 intent.putExtra("hotel_name",approvedModel.getHotel_name());
                 intent.putExtra("hotel_address",approvedModel.getHotel_address());

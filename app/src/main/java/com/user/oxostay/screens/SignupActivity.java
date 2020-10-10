@@ -18,6 +18,8 @@ import com.google.firebase.auth.PhoneAuthProvider;
 import com.user.oxostay.R;
 import com.user.oxostay.common.BaseActivity;
 
+import java.security.SecureRandom;
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class SignupActivity extends AppCompatActivity {
@@ -27,7 +29,7 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String mVerificationId;
     String status;
-    EditText et_mobile,et_name;
+    EditText et_mobile,et_name,enter_ref_code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class SignupActivity extends AppCompatActivity {
         rl_signup = (RelativeLayout) findViewById(R.id.rl_signup);
         et_mobile = (EditText) findViewById(R.id.et_mobile);
         et_name = (EditText) findViewById(R.id.et_name);
+        enter_ref_code = (EditText) findViewById(R.id.enter_ref_code);
 
         mAuth = FirebaseAuth.getInstance();
         Intent intent = getIntent();
@@ -67,6 +70,19 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
+    public String createRandomCode(int codeLength){
+        char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new SecureRandom();
+        for (int i = 0; i < codeLength; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+        System.out.println(output);
+        return output ;
+    }
+
     private void sendVerificationCode(String mobile) {
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 "+91" + mobile,
@@ -89,13 +105,17 @@ public class SignupActivity extends AppCompatActivity {
             //so user has to manually enter the code
             if (code != null) {
                 baseActivity.dismissLoader();
-                Log.e("checkOTPFlow","onVerificationCompleted>>" + code);
+                Log.e("checkOTPFlow","onVerificationCompleted>>" + createRandomCode(5));
                 Intent intent = new Intent(SignupActivity.this,OTPActivity.class);
+                intent.putExtra("ref_code",createRandomCode(5));
                 intent.putExtra("mobile",et_mobile.getText().toString());
                 intent.putExtra("mVerificationId",mVerificationId);
                 intent.putExtra("code",code);
                 intent.putExtra("name",et_name.getText().toString());
                 intent.putExtra("act","signup");
+//                if (!enter_ref_code.getText().toString().equals("")){
+                    intent.putExtra("user_ref_code",enter_ref_code.getText().toString());
+//                }
                 startActivity(intent);
 //                editTextCode.setText(code);
                 //verifying the code

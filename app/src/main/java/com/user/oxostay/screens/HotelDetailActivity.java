@@ -44,7 +44,7 @@ import java.util.Locale;
 public class HotelDetailActivity extends AppCompatActivity {
 
     String hotel_name,hotel_desc,hotel_rating,hotel_imgs,hotel_rate,hotel_amenities,hotel_address;
-    ImageView iv_banner,iv_map;
+    ImageView iv_banner,iv_map,iv_like;
     TextView tv_hotelname,tv_hoteladress,tv_hotelrating,tv_hotelrate,tv_hoteldesc,tv_hoteldirect;
     RatingBar ratingbar;
     RelativeLayout rl_continue_booking;
@@ -86,6 +86,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         ll_directions = (LinearLayout) findViewById(R.id.ll_directions);
         iv_banner = (ImageView) findViewById(R.id.iv_banner);
         iv_map = (ImageView) findViewById(R.id.iv_map);
+        iv_like = (ImageView) findViewById(R.id.iv_like);
         tv_hotelname = (TextView) findViewById(R.id.tv_hotelname);
         tv_hoteladress = (TextView) findViewById(R.id.tv_hoteladress);
         tv_hotelrating = (TextView) findViewById(R.id.tv_hotelrating);
@@ -108,6 +109,13 @@ public class HotelDetailActivity extends AppCompatActivity {
         Log.e("checkNameo",">>" + hotel_name);
 //        String[] imageList = hotel_imgs.split(",");
 
+        iv_like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
         rl_continue_booking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
