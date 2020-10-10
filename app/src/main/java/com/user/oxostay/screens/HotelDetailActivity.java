@@ -69,6 +69,9 @@ public class HotelDetailActivity extends AppCompatActivity {
     }
 
     public void initView(){
+
+
+        
         baseActivity = new BaseActivity();
         baseActivity.showLoader(this);
         database = FirebaseDatabase.getInstance();
