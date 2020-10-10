@@ -48,7 +48,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.tv_12_hr.setText(approvedModel.getRoom_rate_12_hour());
         Log.e("debugAmenities","hotel adapter>>" + approvedModel.getHotel_images().get(0).toString());
         Glide.with(context).load(approvedModel.getHotel_images().get(0)).into(holder.iv_hotel_pic);
-        Log.e("checkNameo",">>" + approvedModel.getHotel_name());
+        Log.e("checkNameo",">>" + listdata.size());
 //        Glide.with(context).load(R.drawable.hotel_image_one).into(holder.iv_hotel_pic);
         holder.rl_prices.setOnClickListener(new View.OnClickListener() {
             @Override

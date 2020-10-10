@@ -38,10 +38,10 @@ public class HotelListActivity extends AppCompatActivity {
     private String TAG = "HotelListActivity";
     private RecyclerView recyclerView_hotels;
     private HotelListAdapter hotelListAdapter;
-    private ArrayList<ApprovedModel> hotelList;
+    private ArrayList<ApprovedModel> hotelList,citiesList;
     private EditText et_location;
     private ImageView iv_back;
-    private String time,location,Intentdate;
+    private String time,location,Intentdate,city;
     private FirebaseDatabase database;
     private DatabaseReference ref;
     private TextView tv_result;
@@ -57,14 +57,17 @@ public class HotelListActivity extends AppCompatActivity {
     public void initView(){
 
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference().child("oxostaypartner").child("hotelsapproved");
+//        ref = database.getReference().child("oxostaypartner").child("hotelsapproved");
+        ref = database.getReference();
 
         hotelList = new ArrayList<>();
+        citiesList = new ArrayList<>();
         if(getIntent() != null)
         {
             Intent intent = getIntent();
             time = intent.getStringExtra("time");
-            Log.e(TAG, "initView: "+time);
+            city = intent.getStringExtra("city");
+            Log.e(TAG, "initView: " + city);
             Intentdate = intent.getStringExtra("date");
             location = intent.getStringExtra("location");
 
@@ -94,6 +97,7 @@ public class HotelListActivity extends AppCompatActivity {
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
 
                 DatabaseReference dateRef = rootRef.child("oxostaypartner").child("hotelsapproved");
+
                 Query query = dateRef.orderByChild("hotel_name").startAt(charSequence.toString()).endAt(charSequence.toString() + "\uf8ff");
                 Log.e("checkQuery",">>" + dateRef);
 
@@ -129,75 +133,34 @@ public class HotelListActivity extends AppCompatActivity {
             }
         });
         hotelListAdapter = new HotelListAdapter(hotelList,this);
+//        Query Locationquery = ref.orderByChild("hotel_address").startAt(city).endAt(city);
+        Query Locationquery = ref.child("oxostaypartner").child("hotelsapproved").orderByChild("city_name").startAt(city).endAt(city);
 
-        ref.addValueEventListener(new ValueEventListener() {
+        Log.e("checkFilter","000>>" + city);
+        Locationquery.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 //                hotelList.clear();
                 try {
 
                     for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                        ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
-                        if(!upload.getDate_from().equalsIgnoreCase("Select Date") && !upload.getDate_to().equalsIgnoreCase("Select Date"))
-                        {
+//                        Log.e("checkFilter",">>" + dataSnapshot.toString());
+//                        Log.e("checkFilter","222>>" + postSnapshot.toString());
 
-                        String subMonthFrom = "";
-                        String subMonthTo = "";
+                        ApprovedModel upload2 = postSnapshot.getValue(ApprovedModel.class);
+                        citiesList.add(upload2);
+                        Log.e("checkFilter","111>>" + citiesList.size() + ">>>" + citiesList.toString());
+//                        recyclerView_hotels.setAdapter(hotelListAdapter);
+//                        hotelListAdapter.notifyDataSetChanged();
+//                        for (int i = 0;i<citiesList.size();i++){
+//                            ApprovedModel upload = citiesList.get(i);
+//
+//                            Log.e("checkFilter","222>>" + upload.toString());
 
-
-                        /**Date Comparison**/
-                        if(upload.getDate_from().contains(" ")){
-                            subMonthFrom = upload.getDate_from().substring(0, upload.getDate_from().indexOf(" "));
                         }
-                        if(upload.getDate_to().contains(" "))
-                        {
-                            subMonthTo = upload.getDate_to().substring(0, upload.getDate_to().indexOf(" "));
-                        }
-
-                        String subDateFrom = upload.getDate_from().substring(subMonthFrom.length()+1, upload.getDate_from().indexOf(","));
-                        String[] subYearFrom = upload.getDate_from().split(",");
-
-                        if(subDateFrom.length() == 1)
-                        {
-                            subDateFrom = "0"+subDateFrom;
-                        }
-
-                        String datesFrom = subYearFrom[1]+"-"+convertMonthIntoInt(subMonthFrom)+"-"+subDateFrom;
-                        SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
-                        Date dateFrom = formatFrom.parse(datesFrom);
-
-                        String subDateTo = upload.getDate_to().substring(subMonthTo.length()+1, upload.getDate_to().indexOf(","));
-                        String[] subYearTo = upload.getDate_to().split(",");
-                        if(subDateTo.length() == 1)
-                        {
-                            subDateTo = "0"+subDateTo;
-                        }
-                        convertMonthIntoInt(subMonthFrom);
-
-                        String datesTo = subYearTo[1]+"-"+convertMonthIntoInt(subMonthTo)+"-"+subDateTo;
-                        SimpleDateFormat formatTo = new SimpleDateFormat("yyyy-MM-dd");
-                        Date dateTo = formatTo.parse(datesTo);
-
-                        SimpleDateFormat intentDate = new SimpleDateFormat("yyyy-MM-dd");
-                        Date dateIntent = intentDate.parse(Intentdate);
-
-                        if(dateIntent.after(dateFrom) && dateIntent.before(dateTo))
-                        {
-                            if(Integer.parseInt(upload.getRooms_available()) > 0)
-                            {
-                                hotelList.add(upload);
-                            }
-                        }
-
-
-                        /**End of Date comparison**/
-                    }
-                    hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
-                    tv_result.setText("Showing " + hotelList.size() + " results");
-                    recyclerView_hotels.setAdapter(hotelListAdapter);
-                    hotelListAdapter.notifyDataSetChanged();
-
-                    }
+                    Log.e("checkFilter","222>>" + citiesList.size() + ">>>" + citiesList.toString());
+                    DateLogic(citiesList);
+//                    }
                 }catch (Exception e){
                     e.printStackTrace();
 
@@ -211,6 +174,81 @@ public class HotelListActivity extends AppCompatActivity {
         });
 //        recyclerView_hotels.setAdapter(hotelListAdapter);
 
+    }
+
+    private void DateLogic(ArrayList<ApprovedModel> approvedModels){
+        try {
+            Log.e("checkFilter","DateLogic>>" + approvedModels.toString());
+            for (int i = 0;i<approvedModels.size();i++){
+                ApprovedModel upload = approvedModels.get(i);
+//
+
+                Log.e("checkFilter","inside DateLogic>>" + upload);
+                if(!upload.getDate_from().equalsIgnoreCase("Select Date") && !upload.getDate_to().equalsIgnoreCase("Select Date"))
+
+                {
+
+                    String subMonthFrom = "";
+                    String subMonthTo = "";
+
+
+                    /**Date Comparison**/
+                    if(upload.getDate_from().contains(" ")){
+                        subMonthFrom = upload.getDate_from().substring(0, upload.getDate_from().indexOf(" "));
+                    }
+                    if(upload.getDate_to().contains(" "))
+                    {
+                        subMonthTo = upload.getDate_to().substring(0, upload.getDate_to().indexOf(" "));
+                    }
+
+                    String subDateFrom = upload.getDate_from().substring(subMonthFrom.length()+1, upload.getDate_from().indexOf(","));
+                    String[] subYearFrom = upload.getDate_from().split(",");
+
+                    if(subDateFrom.length() == 1)
+                    {
+                        subDateFrom = "0"+subDateFrom;
+                    }
+
+                    String datesFrom = subYearFrom[1]+"-"+convertMonthIntoInt(subMonthFrom)+"-"+subDateFrom;
+                    SimpleDateFormat formatFrom = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateFrom = formatFrom.parse(datesFrom);
+
+                    String subDateTo = upload.getDate_to().substring(subMonthTo.length()+1, upload.getDate_to().indexOf(","));
+                    String[] subYearTo = upload.getDate_to().split(",");
+                    if(subDateTo.length() == 1)
+                    {
+                        subDateTo = "0"+subDateTo;
+                    }
+                    convertMonthIntoInt(subMonthFrom);
+
+                    String datesTo = subYearTo[1]+"-"+convertMonthIntoInt(subMonthTo)+"-"+subDateTo;
+                    SimpleDateFormat formatTo = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateTo = formatTo.parse(datesTo);
+
+                    SimpleDateFormat intentDate = new SimpleDateFormat("yyyy-MM-dd");
+                    Date dateIntent = intentDate.parse(Intentdate);
+
+                    if(dateIntent.after(dateFrom) && dateIntent.before(dateTo))
+                    {
+                        Log.e("checkFilter","inside 1>>" + upload);
+                        if(Integer.parseInt(upload.getRooms_available()) > 0)
+                        {
+                            Log.e("checkFilter","inside 2>>" + upload);
+                            hotelList.add(upload);
+                        }
+                    }
+
+
+                    /**End of Date comparison**/
+                }
+                hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
+                tv_result.setText("Showing " + hotelList.size() + " results");
+                recyclerView_hotels.setAdapter(hotelListAdapter);
+                hotelListAdapter.notifyDataSetChanged();
+            }
+        }catch (Exception e){
+
+        }
     }
 
 
@@ -266,7 +304,7 @@ public class HotelListActivity extends AppCompatActivity {
             monthOfTheYear = "12";
         }
 
-        Log.e("checkQuery","final>>" + monthOfTheYear);
+        Log.e("checkQuery","final last>>" + monthOfTheYear);
 
 
         return monthOfTheYear;

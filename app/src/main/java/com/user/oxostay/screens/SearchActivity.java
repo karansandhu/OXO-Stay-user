@@ -125,6 +125,7 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
             public void onClick(View view) {
                 Intent intent = new Intent(SearchActivity.this, HotelListActivity.class);
                 intent.putExtra("date", final_date);
+                intent.putExtra("city", et_city_name.getText().toString());
                 intent.putExtra("location", location);
                 intent.putExtra("time", tv_time.getText().toString());
                 startActivity(intent);
