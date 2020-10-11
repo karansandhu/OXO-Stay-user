@@ -46,7 +46,7 @@ public class HotelListActivity extends AppCompatActivity {
     private DatabaseReference ref;
     private TextView tv_result;
     private String monthOfTheYear;
-
+    private ArrayList<String> hotelListIds;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +69,7 @@ public class HotelListActivity extends AppCompatActivity {
             location = intent.getStringExtra("location");
 
         }
-
+        hotelListIds = new ArrayList<>();
         recyclerView_hotels = (RecyclerView) findViewById(R.id.recyclerView_hotels);
         et_location = (EditText) findViewById(R.id.et_location);
         tv_result = (TextView) findViewById(R.id.tv_result);
@@ -102,12 +102,12 @@ public class HotelListActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         hotelList.clear();
                         for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
                             ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
                             hotelList.add(upload);
+                            hotelListIds.add(postSnapshot.getKey());
                             Log.e("checkQuery","11>>" + postSnapshot.toString());
                         }
-                        hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
+                        hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,getApplicationContext());
 
                         Log.e("checkQuery","final>>" + hotelList.toString());
                         tv_result.setText("Showing " + hotelList.size() + " results");
@@ -128,7 +128,7 @@ public class HotelListActivity extends AppCompatActivity {
 
             }
         });
-        hotelListAdapter = new HotelListAdapter(hotelList,this);
+        hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,this);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -192,13 +192,13 @@ public class HotelListActivity extends AppCompatActivity {
                             if(Integer.parseInt(upload.getRooms_available()) > 0)
                             {
                                 hotelList.add(upload);
+                                hotelListIds.add(postSnapshot.getKey());
+
                             }
                         }
 
-
-                        /**End of Date comparison**/
-                    }
-                    hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
+                        }
+                    hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,getApplicationContext());
                     tv_result.setText("Showing " + hotelList.size() + " results");
                     recyclerView_hotels.setAdapter(hotelListAdapter);
                     hotelListAdapter.notifyDataSetChanged();

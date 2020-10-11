@@ -31,7 +31,6 @@ import java.util.Locale;
 public class SearchActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener {
 
     private static final String TAG = "SearchActivity";
-    private BottomSheetBehavior bottomSheetBehavior;
     private TextView tv_another_day, tv_time, tv_today;
     private RelativeLayout rl_search_now, rl_time_picker;
     private ImageView iv_back, iv_edit;
@@ -67,43 +66,12 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
         et_city_name.setText(location);
         rl_time_picker = (RelativeLayout) findViewById(R.id.rl_time_picker);
 
-        bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent1 = new Intent(SearchActivity.this, LocationActivity.class);
                 startActivity(intent1);
                 finish();
-            }
-        });
-        bottomSheetBehavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override
-            public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                switch (newState) {
-                    case BottomSheetBehavior.STATE_HIDDEN:
-//                        textViewBottomSheetState.setText("STATE HIDDEN");
-                        break;
-                    case BottomSheetBehavior.STATE_EXPANDED:
-//                        textViewBottomSheetState.setText("STATE EXPANDED");
-                        // update toggle button text
-//                        toggleBottomSheet.setText("Expand BottomSheet");
-                        break;
-                    case BottomSheetBehavior.STATE_COLLAPSED:
-//                        textViewBottomSheetState.setText("STATE COLLAPSED");
-                        // update collapsed button text
-//                        toggleBottomSheet.setText("Collapse BottomSheet");
-                        break;
-                    case BottomSheetBehavior.STATE_DRAGGING:
-//                        textViewBottomSheetState.setText("STATE DRAGGING");
-                        break;
-                    case BottomSheetBehavior.STATE_SETTLING:
-//                        textViewBottomSheetState.setText("STATE SETTLING");
-                        break;
-                }
-            }
-
-            @Override
-            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
             }
         });
         rl_time_picker.setOnClickListener(new View.OnClickListener() {
