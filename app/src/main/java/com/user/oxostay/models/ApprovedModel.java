@@ -8,11 +8,11 @@ public class ApprovedModel {
 
     String aadhaarCard, address, fullName, gstCert, panCard, phNumber, fcm_token, hotel_address, hotel_desc, hotel_email, hotel_name, hotel_pictures,
             hotel_rating, hotel_secondary_email, manager_added, room_12h_first_checkin, room_3h_first_checkin, room_6h_first_checkin,
-            room_12h_last_checkin, room_3h_last_checkin, room_6h_last_checkin, room_rate_12_hour, room_rate_3_hour, room_rate_6_hour, rooms_available;
+            room_12h_last_checkin, room_3h_last_checkin, room_6h_last_checkin, room_rate_12_hour, room_rate_3_hour, room_rate_6_hour, rooms_available, date_from, date_to;
     boolean approvedOrNot;
     ArrayList<String> hotel_images,amenities;
 
-    public ApprovedModel(ArrayList<String> hotel_images,ArrayList<String> amenities, String aadhaarCard, String address, String fullName, String gstCert, String panCard, String phNumber, String fcm_token, String hotel_address, String hotel_desc, String hotel_email, String hotel_name, String hotel_pictures, String hotel_rating, String hotel_secondary_email, String manager_added, String room_12h_first_checkin, String room_3h_first_checkin, String room_6h_first_checkin, String room_12h_last_checkin, String room_3h_last_checkin, String room_6h_last_checkin, String room_rate_12_hour, String room_rate_3_hour, String room_rate_6_hour, String rooms_available, boolean approvedOrNot) {
+    public ApprovedModel(ArrayList<String> hotel_images,ArrayList<String> amenities, String aadhaarCard, String address, String fullName, String gstCert, String panCard, String phNumber, String fcm_token, String hotel_address, String hotel_desc, String hotel_email, String hotel_name, String hotel_pictures, String hotel_rating, String hotel_secondary_email, String manager_added, String room_12h_first_checkin, String room_3h_first_checkin, String room_6h_first_checkin, String room_12h_last_checkin, String room_3h_last_checkin, String room_6h_last_checkin, String room_rate_12_hour, String room_rate_3_hour, String room_rate_6_hour, String rooms_available, boolean approvedOrNot, String date_from, String date_to) {
         this.amenities = amenities;
         this.hotel_images = hotel_images;
         this.aadhaarCard = aadhaarCard;
@@ -41,10 +41,28 @@ public class ApprovedModel {
         this.room_rate_6_hour = room_rate_6_hour;
         this.rooms_available = rooms_available;
         this.approvedOrNot = approvedOrNot;
+        this.date_from = date_from;
+        this.date_to = date_to;
     }
 
     public ApprovedModel() {
 
+    }
+
+    public String getDate_from() {
+        return date_from;
+    }
+
+    public void setDate_from(String date_from) {
+        this.date_from = date_from;
+    }
+
+    public String getDate_to() {
+        return date_to;
+    }
+
+    public void setDate_to(String date_to) {
+        this.date_to = date_to;
     }
 
     public ArrayList<String> getAmenities() {
