@@ -144,6 +144,7 @@ public class HotelListActivity extends AppCompatActivity {
                         String subMonthFrom = "";
                         String subMonthTo = "";
 
+                            Log.e(TAG, "onDataChange: "+upload.getDate_from()+"     "+upload.getDate_to());
 
                         /**Date Comparison**/
                         if(upload.getDate_from().contains(" ")){
@@ -181,7 +182,12 @@ public class HotelListActivity extends AppCompatActivity {
                         SimpleDateFormat intentDate = new SimpleDateFormat("yyyy-MM-dd");
                         Date dateIntent = intentDate.parse(Intentdate);
 
-                        if(dateIntent.after(dateFrom) && dateIntent.before(dateTo))
+
+//                            Log.e(TAG, "onDataChange: dateIntent "+dateIntent+"\nDate From: "+dateFrom +"\nDate To: "+dateTo);
+
+                            Log.e(TAG, "onDataChange: "+dateFrom+"     "+dateTo);
+
+                            if(dateIntent.after(dateFrom) && dateIntent.before(dateTo))
                         {
                             if(Integer.parseInt(upload.getRooms_available()) > 0)
                             {
