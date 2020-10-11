@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,8 +19,10 @@ import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +39,7 @@ import com.user.oxostay.adapter.SliderAdapterExample;
 import com.user.oxostay.common.BaseActivity;
 import com.user.oxostay.models.Amenities;
 import com.user.oxostay.models.ApprovedModel;
+import com.user.oxostay.models.Favourites;
 import com.user.oxostay.models.SliderItem;
 
 import java.util.ArrayList;
@@ -43,7 +48,7 @@ import java.util.Locale;
 
 public class HotelDetailActivity extends AppCompatActivity {
 
-    String hotel_name,hotel_desc,hotel_rating,hotel_imgs,hotel_rate,hotel_amenities,hotel_address;
+    String hotel_name,hotel_desc,hotel_rating,hotel_imgs,hotel_rate,hotel_id,hotel_address,is_liked;
     ImageView iv_banner,iv_map,iv_like;
     TextView tv_hotelname,tv_hoteladress,tv_hotelrating,tv_hotelrate,tv_hoteldesc,tv_hoteldirect;
     RatingBar ratingbar;
@@ -55,10 +60,13 @@ public class HotelDetailActivity extends AppCompatActivity {
     List<SliderItem> sliderItemList;
     SliderView sliderView;
     FirebaseDatabase database;
-    DatabaseReference reference;
+    DatabaseReference reference,likesRef;
     private SliderAdapterExample adapter;
     GridView gridview;
     BaseActivity baseActivity;
+    private FirebaseAuth mAuth;
+    Boolean likeChecker = false;
+    String user_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +79,12 @@ public class HotelDetailActivity extends AppCompatActivity {
     public void initView(){
 
 
-        
+
         baseActivity = new BaseActivity();
         baseActivity.showLoader(this);
         database = FirebaseDatabase.getInstance();
         reference = database.getReference().child("oxostaypartner").child("amenities");
+        likesRef = database.getReference().child("oxostayuser").child("favourites");
 
         sliderItemList=new ArrayList<>();
         hotel_ame_image=new ArrayList<>();
@@ -100,22 +109,73 @@ public class HotelDetailActivity extends AppCompatActivity {
         gridview = (GridView) findViewById(R.id.gridView);
 
         hotel_pic_list=new ArrayList<>();
+        mAuth = FirebaseAuth.getInstance();
 
         final Intent intent = getIntent();
+        SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+        user_name = sharedpreferences.getString("user_name","");
+        hotel_id = intent.getStringExtra("hotel_id");
         hotel_pic_list = intent.getStringArrayListExtra("images_array");
         hotel_address = intent.getStringExtra("hotel_address");
         hotel_name = intent.getStringExtra("hotel_name");
         hotel_desc = intent.getStringExtra("hotel_desc");
         hotel_rating = intent.getStringExtra("hotel_rating");
         hotel_rate = intent.getStringExtra("hotel_rate");
+//        is_liked = intent.getStringExtra("is_liked");
         hotel_amenities_list = intent.getStringArrayListExtra("hotel_amenities");
-        Log.e("checkNameo",">>" + hotel_name);
+        Log.e("checkNameo",">HotelDetailActivity>" + hotel_id + ">>" + is_liked);
 //        String[] imageList = hotel_imgs.split(",");
+        setLikebutton(mAuth.getCurrentUser().getUid());
+
+//        iv_like.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                if (current_user_id == null){
+////                    Toast.makeText(EventDetailActivity.this, "Please Login to like...", Toast.LENGTH_SHORT).show();
+////                }else
+////                    likeChecker = true;
+//
+//                likesRef.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(DataSnapshot dataSnapshot) {
+//
+////                        if (likeChecker.equals(true)){
+//
+//                            if (dataSnapshot.child(mAuth.getCurrentUser().getUid()).hasChild(hotel_id)){
+//                                setLikebutton(mAuth.getCurrentUser().getUid());
+//                                likesRef.child(mAuth.getCurrentUser().getUid()).child(hotel_id).removeValue();
+//                                likeChecker = false;
+//
+//                            }else {
+//                                setLikebutton(mAuth.getCurrentUser().getUid());
+//                                likesRef.child(mAuth.getCurrentUser().getUid()).child(hotel_id).setValue(true);
+//                                likeChecker = false;
+//                            }
+//
+////                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//                });
+//            }
+//        });
 
         iv_like.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+                Log.e("checkLikeCount",">>" + is_liked);
+
+                if (is_liked.equals("0")){
+                    likeHotel();
+//                    iv_like.setImageResource(R.drawable.ic_heart_white);
+                }else if (is_liked.equals("1")){
+                    unLikeHotel();
+//                    iv_like.setImageResource(R.drawable.ic_heart_shape_silhouette);
+                }
 
             }
         });
@@ -238,6 +298,65 @@ public class HotelDetailActivity extends AppCompatActivity {
         renewItems();
     }
 
+    public void setLikebutton(final String postKey) {
+
+        likesRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+//                countLikes = (int) dataSnapshot.child(postKey).getChildrenCount();
+//                tv_like_count.setText(Integer.toString(countLikes) + (" People Liked this"));
+                try {
+                    if (dataSnapshot.child(postKey).hasChild(hotel_id)) {
+
+//                        countLikes = (int) dataSnapshot.child(postKey).getChildrenCount();
+                        iv_like.setImageResource(R.drawable.ic_heart_shape_silhouette);
+                        is_liked = "1";
+//                        tv_like_count.setText(Integer.toString(countLikes) + (" People Liked this"));
+
+                    } else {
+
+//                        countLikes = (int) dataSnapshot.child(postKey).getChildrenCount();
+                        iv_like.setImageResource(R.drawable.ic_heart_white);
+                        is_liked = "0";
+//                        tv_like_count.setText(Integer.toString(countLikes) + (" People Liked this"));
+                    }
+                } catch (Exception e) {
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public void likeHotel(){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child("oxostayuser").child("favourites");
+        Favourites favourites = new Favourites();
+        favourites.setHotel_id(hotel_id);
+        favourites.setUsername(user_name);
+        ref.child(mAuth.getCurrentUser().getUid()).child(hotel_id).setValue(favourites);
+        Toast.makeText(this, "Added to Favourites", Toast.LENGTH_SHORT).show();
+        setLikebutton(mAuth.getCurrentUser().getUid());
+
+
+    }
+    public void unLikeHotel(){
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference().child("oxostayuser").child("favourites");
+        Favourites favourites = new Favourites();
+        favourites.setHotel_id(hotel_id);
+        favourites.setUsername(user_name);
+        ref.child(mAuth.getCurrentUser().getUid()).child(hotel_id).removeValue();
+        setLikebutton(mAuth.getCurrentUser().getUid());
+
+    }
 
     public void renewItems() {
         //dummy data

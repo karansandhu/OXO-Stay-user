@@ -35,6 +35,7 @@ public class HotelListActivity extends AppCompatActivity {
     RecyclerView recyclerView_hotels;
     HotelListAdapter hotelListAdapter;
     ArrayList<ApprovedModel> hotelList;
+    ArrayList<String> hotelListIds;
     EditText et_location;
     ImageView iv_back;
     String time,location,date;
@@ -56,6 +57,7 @@ public class HotelListActivity extends AppCompatActivity {
         ref = database.getReference().child("oxostaypartner").child("hotelsapproved");
 
         hotelList = new ArrayList<>();
+        hotelListIds = new ArrayList<>();
         Intent intent = getIntent();
         time = intent.getStringExtra("time");
         date = intent.getStringExtra("date");
@@ -96,9 +98,10 @@ public class HotelListActivity extends AppCompatActivity {
 
                             ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
                             hotelList.add(upload);
+                            hotelListIds.add(postSnapshot.getKey());
                             Log.e("checkQuery","11>>" + postSnapshot.toString());
                         }
-                        hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
+                        hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,getApplicationContext());
 
                         Log.e("checkQuery","final>>" + hotelList.toString());
                         tv_result.setText("Showing " + hotelList.size() + " results");
@@ -122,7 +125,7 @@ public class HotelListActivity extends AppCompatActivity {
 
 
         Log.e("checkQuery","Hotel List>>" + ref);
-        hotelListAdapter = new HotelListAdapter(hotelList,this);
+        hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,this);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -134,9 +137,10 @@ public class HotelListActivity extends AppCompatActivity {
 
                         ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
                         hotelList.add(upload);
+                        hotelListIds.add(postSnapshot.getKey());
                         Log.e("checkQuery","11>>" + postSnapshot.toString());
                     }
-                    hotelListAdapter = new HotelListAdapter(hotelList,getApplicationContext());
+                    hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,getApplicationContext());
                     tv_result.setText("Showing " + hotelList.size() + " results");
                     Log.e("checkQuery","final>>" + hotelList.toString());
                     recyclerView_hotels.setAdapter(hotelListAdapter);

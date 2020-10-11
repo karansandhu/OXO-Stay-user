@@ -22,11 +22,13 @@ import java.util.ArrayList;
 
 public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.ViewHolder>{
     private ArrayList<ApprovedModel> listdata;
+    private ArrayList<String> listdataIds;
     private Context context;
 
     // RecyclerView recyclerView;
-    public HotelListAdapter(ArrayList<ApprovedModel> listdata, Context context) {
+    public HotelListAdapter(ArrayList<ApprovedModel> listdata, ArrayList<String> listdataIds,Context context) {
         this.listdata = listdata;
+        this.listdataIds = listdataIds;
         this.context = context;
     }
     @Override
@@ -38,7 +40,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
     }
 
     @Override
-    public void onBindViewHolder(HotelListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(HotelListAdapter.ViewHolder holder, final int position) {
 //        final ArrayList<String> myListData = listdata[position];
         final ApprovedModel approvedModel = listdata.get(position);
         holder.tv_hotel_name.setText(approvedModel.getHotel_name());
@@ -48,7 +50,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.tv_12_hr.setText(approvedModel.getRoom_rate_12_hour());
         Log.e("debugAmenities","hotel adapter>>" + approvedModel.getHotel_images().get(0).toString());
         Glide.with(context).load(approvedModel.getHotel_images().get(0)).into(holder.iv_hotel_pic);
-        Log.e("checkNameo",">>" + approvedModel.getHotel_name());
+        Log.e("checkNameo",">>" + listdataIds.get(position));
 //        Glide.with(context).load(R.drawable.hotel_image_one).into(holder.iv_hotel_pic);
         holder.rl_prices.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +64,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
                 intent.putExtra("hotel_rate",approvedModel.getRoom_rate_3_hour());
                 intent.putExtra("hotel_amenities",approvedModel.getAmenities());
                 intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
+                intent.putExtra("hotel_id",listdataIds.get(position));
                 context.startActivity(intent);
             }
         });

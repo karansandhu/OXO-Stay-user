@@ -2,6 +2,7 @@ package com.user.oxostay.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,6 +19,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,8 +28,11 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.user.oxostay.R;
 import com.user.oxostay.adapter.FavouriteAdapter;
+import com.user.oxostay.adapter.GridViewAdapter;
+import com.user.oxostay.adapter.HotelListAdapter;
 import com.user.oxostay.common.BaseActivity;
 import com.user.oxostay.models.ApprovedModel;
+import com.user.oxostay.models.Favourites;
 
 import java.util.ArrayList;
 
@@ -36,11 +41,13 @@ public class FavouriteFragment extends Fragment {
     RelativeLayout rl_Search;
     FavouriteAdapter favouriteAdapter;
     RecyclerView recyclerView_fav;
-    ArrayList<String> hotelList;
+    ArrayList<Favourites> hotelListIds;
+    ArrayList<String> hotelList,hotelListIdsNew;
     EditText et_fav_search;
     FirebaseDatabase database;
     TextView tv_fav_result;
-    DatabaseReference ref;
+    DatabaseReference ref,hotelRef;
+    private FirebaseAuth mAuth;
     ArrayList<ApprovedModel> approvedModels;
     ArrayList<String> citiesList;
     BaseActivity baseActivity;
@@ -63,28 +70,23 @@ public class FavouriteFragment extends Fragment {
     public void initView(View view){
 
         baseActivity = new BaseActivity();
+        mAuth = FirebaseAuth.getInstance();
         recyclerView_fav = (RecyclerView) view.findViewById(R.id.recyclerView_fav);
         et_fav_search = (EditText) view.findViewById(R.id.et_fav_search);
         tv_fav_result = (TextView) view.findViewById(R.id.tv_fav_result);
         hotelList = new ArrayList<>();
+        hotelListIdsNew = new ArrayList<>();
+        hotelListIds = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
-        ref = database.getReference().child("oxostaypartner").child("hotelsapproved");
+        ref = database.getReference().child("oxostayuser").child("favourites");
+        hotelRef = database.getReference().child("oxostaypartner").child("hotelsapproved");
         approvedModels = new ArrayList<>();
-        getDataFirebase();
         recyclerView_fav.setHasFixedSize(true);
         recyclerView_fav.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView_fav.setAdapter(favouriteAdapter);
 
 
         rl_Search = (RelativeLayout) view.findViewById(R.id.rl_Search);
-//        rl_Search.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(getContext(),LocationActivity.class);
-//                startActivity(intent);
-//            }
-//        });
 
         et_fav_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -133,30 +135,41 @@ public class FavouriteFragment extends Fragment {
 
     }
 
-    public void getDataFirebase(){
+    @Override
+    public void onResume(){
+        super.onResume();
+        //OnResume Fragment
+        baseActivity.showLoader(getActivity());
+        hotelList.clear();
+        approvedModels.clear();
+        hotelListIds.clear();
+        hotelListIdsNew.clear();
+        getFirebaseKeys();
+    }
 
+    public void getFirebaseKeys(){
         try {
+            Query query = ref.child(mAuth.getCurrentUser().getUid());
 
-            ref.addValueEventListener(new ValueEventListener() {
+            Log.e("checkFLowISsue","00>>");
+            query.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    Log.e("checkfavKey","00>>" + dataSnapshot.toString());
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
+                        Favourites favourites = dataSnapshot1.getValue(Favourites.class);
+                        Log.e("checkfavKey","11>>" + favourites);
+                        hotelListIds.add(favourites);
+                    }
+                    Log.e("checkfavKey","22>>" + hotelListIds.toString());
 
-                    try {
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            ApprovedModel approvedModel = dataSnapshot1.getValue(ApprovedModel.class);
-                            approvedModels.add(approvedModel);
-//                    approvedModelsIds.add(dataSnapshot1.getKey());
-                        }
-                        Log.e("checkfavKey",">>" + approvedModels.toString());
-                        tv_fav_result.setText("Showing " + approvedModels.size() + " results");
-                        favouriteAdapter = new FavouriteAdapter(approvedModels,getActivity());
-                        recyclerView_fav.setAdapter(favouriteAdapter);
-                        favouriteAdapter.notifyDataSetChanged();
-                    }catch (Exception e){
-                        Log.e("checkfavKey",">>" + e.getMessage());
+                    for (int i = 0;i<hotelListIds.size();i++){
+                        Favourites favourites = hotelListIds.get(i);
+                        hotelListIdsNew.add(favourites.getHotel_id());
                     }
 
-//                baseActivity.dismissLoader();
+                    Log.e("checkQuery","11Favourites>>" + hotelListIdsNew.toString());
+                    getDataFirebase();
                 }
 
                 @Override
@@ -164,6 +177,48 @@ public class FavouriteFragment extends Fragment {
 
                 }
             });
+
+        }catch (Exception e){
+
+        }
+    }
+
+    public void getDataFirebase(){
+
+        try {
+            Log.e("checkforloop","00>>" + hotelListIdsNew);
+            hotelRef.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+
+                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+                            Log.e("checkforloop","11>>" + postSnapshot.toString());
+                            if (hotelListIdsNew.contains(postSnapshot.getKey())){
+
+                                Log.e("checkforloop","22>>" + postSnapshot.getKey());
+                                ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
+                                approvedModels.add(upload);
+                            }
+                        }
+
+                        favouriteAdapter = new FavouriteAdapter(approvedModels,getActivity());
+                        tv_fav_result.setText("Showing " + approvedModels.size() + " results");
+                        Log.e("checkQueryNew","final>>" + approvedModels.toString());
+                        recyclerView_fav.setAdapter(favouriteAdapter);
+                        favouriteAdapter.notifyDataSetChanged();
+                        baseActivity.dismissLoader();
+                    }catch (Exception e){
+
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
 
         }catch (Exception e){
 
