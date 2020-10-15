@@ -40,16 +40,32 @@ public class OTPActivity extends AppCompatActivity {
         database = FirebaseDatabase.getInstance();
         ref = database.getReference();
         Intent intent = getIntent();
-        if (!intent.getStringExtra("user_ref_code").equals("")){
-            user_ref_code = intent.getStringExtra("user_ref_code");
-        }
-        ref_code = intent.getStringExtra("ref_code");
-        mobile_no = intent.getStringExtra("mobile");
-        mVerificationId = intent.getStringExtra("mVerificationId");
-        code = intent.getStringExtra("code");
+//        if (!intent.getStringExtra("user_ref_code").equals("")){
+//            user_ref_code = intent.getStringExtra("user_ref_code");
+//        }
         act = intent.getStringExtra("act");
         if (act.equals("signup")){
+
+            ref_code = intent.getStringExtra("ref_code");
+            mobile_no = intent.getStringExtra("mobile");
+            mVerificationId = intent.getStringExtra("mVerificationId");
+            code = intent.getStringExtra("code");
             name = intent.getStringExtra("name");
+            user_ref_code = intent.getStringExtra("user_ref_code");
+
+            SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedpreferences.edit();
+            // TODO: Save username, refcode and user_no somewhere else as well in sharedprefereces rather than this only activity
+            editor.putString("ref_code", ref_code);
+            editor.putString("user_name", name);
+            editor.putString("user_no", mobile_no);
+            editor.commit();
+        }else if (act.equals("login")){
+
+            mobile_no = intent.getStringExtra("mobile");
+            mVerificationId = intent.getStringExtra("mVerificationId");
+            code = intent.getStringExtra("code");
+
         }
         verifyVerificationCode(code);
     }

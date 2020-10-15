@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.PaymentActivity"></activity>
+        <activity android:name=".screens.ReviewActivity"></activity>
+        <activity android:name=".screens.PaymentActivity" />
         <activity android:name=".screens.ImageViewActivity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -40,7 +41,7 @@
         <activity android:name=".screens.TermsActivity" />
         <activity android:name=".screens.PrivacyActivity" />
         <activity android:name=".screens.HotelDetailActivity" />
-        <activity android:name=".screens.HotelListActivity"></activity>
+        <activity android:name=".screens.HotelListActivity" />
         <activity android:name=".screens.SearchActivity" />
         <activity android:name=".screens.LocationActivity" />
         <activity android:name=".screens.SignupActivity" />
@@ -56,10 +57,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

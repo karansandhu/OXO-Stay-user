@@ -50,11 +50,46 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.tv_12_hr.setText(approvedModel.getRoom_rate_12_hour());
         Glide.with(context).load(approvedModel.getHotel_images().get(0)).into(holder.iv_hotel_pic);
 //        Glide.with(context).load(R.drawable.hotel_image_one).into(holder.iv_hotel_pic);
-        holder.rl_prices.setOnClickListener(new View.OnClickListener() {
+        holder.tv_3_hr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HotelDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("time","3 Hours");
+                intent.putExtra("images_array",approvedModel.getHotel_images());
+                intent.putExtra("hotel_name",approvedModel.getHotel_name());
+                intent.putExtra("hotel_address",approvedModel.getHotel_address());
+                intent.putExtra("hotel_rating",approvedModel.getHotel_rating());
+                intent.putExtra("hotel_rate",approvedModel.getRoom_rate_3_hour());
+                intent.putExtra("hotel_amenities",approvedModel.getAmenities());
+                intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
+                intent.putExtra("hotel_id",listdataIds.get(position));
+                context.startActivity(intent);
+            }
+        });
+        holder.tv_6_hr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, HotelDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("time","6 Hours");
+                intent.putExtra("images_array",approvedModel.getHotel_images());
+                intent.putExtra("hotel_name",approvedModel.getHotel_name());
+                intent.putExtra("hotel_address",approvedModel.getHotel_address());
+                intent.putExtra("hotel_rating",approvedModel.getHotel_rating());
+                intent.putExtra("hotel_rate",approvedModel.getRoom_rate_3_hour());
+                intent.putExtra("hotel_amenities",approvedModel.getAmenities());
+                intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
+                intent.putExtra("hotel_id",listdataIds.get(position));
+                context.startActivity(intent);
+            }
+        });
+        holder.tv_12_hr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, HotelDetailActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra("time","12 Hours");
                 intent.putExtra("images_array",approvedModel.getHotel_images());
                 intent.putExtra("hotel_name",approvedModel.getHotel_name());
                 intent.putExtra("hotel_address",approvedModel.getHotel_address());

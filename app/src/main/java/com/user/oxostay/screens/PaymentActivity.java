@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +27,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentStatusL
 
     private TextView statusView;
 
-    private Button payButton;
+    private RelativeLayout payButton;
 
     private RadioGroup radioAppChoice;
+    private RadioButton app_default,app_google_pay,app_paytm;
 
     private EditText fieldPayeeVpa;
     private EditText fieldPayeeName;
@@ -36,8 +38,10 @@ public class PaymentActivity extends AppCompatActivity implements PaymentStatusL
     private EditText fieldTransactionRefId;
     private EditText fieldDescription;
     private EditText fieldAmount;
+    private RelativeLayout rl_cash,rl_gpay,rl_paytm;
 
     private EasyUpiPayment easyUpiPayment;
+    String method_selected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentStatusL
         payButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pay();
+                pay(method_selected);
             }
         });
     }
@@ -57,24 +61,52 @@ public class PaymentActivity extends AppCompatActivity implements PaymentStatusL
     private void initViews() {
         imageView = findViewById(R.id.imageView);
         statusView = findViewById(R.id.textView_status);
-        payButton = findViewById(R.id.button_pay);
+        payButton = findViewById(R.id.rl_continue_booking);
 
         fieldPayeeVpa = findViewById(R.id.field_vpa);
+        app_default = findViewById(R.id.app_default);
+        app_google_pay = findViewById(R.id.app_google_pay);
+        app_paytm = findViewById(R.id.app_paytm);
+        rl_cash = findViewById(R.id.rl_cash);
+        rl_gpay = findViewById(R.id.rl_gpay);
+        rl_paytm = findViewById(R.id.rl_paytm);
         fieldPayeeName = findViewById(R.id.field_name);
         fieldTransactionId = findViewById(R.id.field_transaction_id);
         fieldTransactionRefId = findViewById(R.id.field_transaction_ref_id);
         fieldDescription = findViewById(R.id.field_description);
         fieldAmount = findViewById(R.id.field_amount);
+        radioAppChoice = findViewById(R.id.radioAppChoice);
 
-        String transactionId = "TID" + System.currentTimeMillis();
+        rl_cash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                method_selected = "Cash";
+                Log.e("checkOnClick","rl_cash>>" + radioAppChoice.getCheckedRadioButtonId());
+            }
+        });
+        rl_gpay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                method_selected = "UPI";
+                Log.e("checkOnClick","rl_gpay>>" + radioAppChoice.getCheckedRadioButtonId());
+            }
+        });
+        rl_paytm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                method_selected = "Paytm";
+                Log.e("checkOnClick","rl_paytm>>" + radioAppChoice.getCheckedRadioButtonId());
+            }
+        });
+
+        String transactionId = "OXO" + System.currentTimeMillis();
         Log.e("checkTID",">>" + transactionId);
         fieldTransactionId.setText(transactionId);
         fieldTransactionRefId.setText(transactionId);
 
-        radioAppChoice = findViewById(R.id.radioAppChoice);
     }
 
-    private void pay() {
+    private void pay(String method_selected) {
         String payeeVpa = fieldPayeeVpa.getText().toString();
         String payeeName = fieldPayeeName.getText().toString();
         String transactionId = fieldTransactionId.getText().toString();
@@ -85,39 +117,48 @@ public class PaymentActivity extends AppCompatActivity implements PaymentStatusL
 
         PaymentApp paymentApp;
 
-        switch (paymentAppChoice.getId()) {
-            case R.id.app_default:
+        switch (method_selected) {
+            case "Cash":
+                //Cash
                 paymentApp = PaymentApp.ALL;
                 break;
-            case R.id.app_amazonpay:
-                paymentApp = PaymentApp.AMAZON_PAY;
-                break;
-            case R.id.app_bhim_upi:
+            case "UPI":
                 paymentApp = PaymentApp.BHIM_UPI;
                 break;
-            case R.id.app_google_pay:
-                paymentApp = PaymentApp.GOOGLE_PAY;
-                break;
-            case R.id.app_phonepe:
-                paymentApp = PaymentApp.PHONE_PE;
-                break;
-            case R.id.app_paytm:
+            case "Paytm":
                 paymentApp = PaymentApp.PAYTM;
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + paymentAppChoice.getId());
         }
+//        switch (paymentAppChoice.getId()) {
+//            case R.id.app_default:
+//                //Cash
+//                paymentApp = PaymentApp.ALL;
+//                break;
+//            case R.id.app_bhim_upi:
+//                paymentApp = PaymentApp.BHIM_UPI;
+//                break;
+//            case R.id.app_google_pay:
+//                paymentApp = PaymentApp.GOOGLE_PAY;
+//                break;
+//            case R.id.app_paytm:
+//                paymentApp = PaymentApp.PAYTM;
+//                break;
+//            default:
+//                throw new IllegalStateException("Unexpected value: " + paymentAppChoice.getId());
+//        }
 
 
         // START PAYMENT INITIALIZATION
         EasyUpiPayment.Builder builder = new EasyUpiPayment.Builder(this)
                 .with(paymentApp)
-                .setPayeeVpa(payeeVpa)
-                .setPayeeName(payeeName)
+                .setPayeeVpa("payeeVpa")
+                .setPayeeName("payeeName")
                 .setTransactionId(transactionId)
                 .setTransactionRefId(transactionRefId)
-                .setDescription(description)
-                .setAmount(amount);
+                .setDescription("Hotel Booking")
+                .setAmount("1");
         // END INITIALIZATION
 
         try {
@@ -138,7 +179,7 @@ public class PaymentActivity extends AppCompatActivity implements PaymentStatusL
     @Override
     public void onTransactionCompleted(TransactionDetails transactionDetails) {
         // Transaction Completed
-        Log.d("TransactionDetails", transactionDetails.toString());
+        Log.e("TransactionDetails", transactionDetails.toString());
         statusView.setText(transactionDetails.toString());
 
         switch (transactionDetails.getTransactionStatus()) {

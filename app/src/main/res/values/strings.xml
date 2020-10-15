@@ -28,6 +28,14 @@
     <string name="already_have_acc">Already have an account? Login</string>
     <string name="login">Login</string>
     <string name="am">AM</string>
+    <string name="paytm">Paytm</string>
+    <string name="upi">UPI</string>
+    <string name="cash">Cash</string>
+    <string name="payment_method">Payment Methods :</string>
+    <string name="apply_code">Apply Coupon</string>
+    <string name="enter_promo">promo code</string>
+    <string name="total_final">Total (Including Taxes)</string>
+    <string name="use_credits">Use Credits from Wallet</string>
     <string name="pm">PM</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
@@ -66,7 +74,8 @@
     <string name="program_line_one">\u25CF  Refer a friend and get 500 OXOStay credits to your account</string>
     <string name="program_line_two">\u25CF  OXOStay Credits will be valid for 90 days</string>
     <string name="program_line_three">\u25CF  Referral credits can only be used on Mobile App</string>
-\    <string name="house_keeping">\u25CF  House-keeping and service staff to wear masks and gloves at all times</string>
+    \
+    <string name="house_keeping">\u25CF  House-keeping and service staff to wear masks and gloves at all times</string>
     <string name="staff_train">\u25CF  Staff is trained at least twice a week on social distancing, hand hygiene and thermal temperature checks</string>
     <string name="staff_temp">\u25CF  Temperature checks for staff twice a day</string>
     <string name="rooms_dis">\u25CF  Rooms Disinfection- rooms are disinfected daily as per guidelines mentioned by WHO</string>
@@ -94,6 +103,7 @@
     <string name="search_hotel">Search Hotel</string>
     <string name="search">Search</string>
     <string name="continue_booking">Continue Booking</string>
+    <string name="pay">Pay</string>
     <string name="signup">Signup</string>
     <string name="phone_no">Phone no.</string>
     <string name="name">Name</string>

@@ -137,13 +137,7 @@ Log.e("checkUSerId",">>" + user_id);
                 user_no = user.getMobile_no();
                 ref_code = user.getRef_code();
                 user_profile_pic = user.getProfile_pic();
-                SharedPreferences sharedpreferences = getActivity().getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedpreferences.edit();
-                // TODO: Save username, refcode and user_no somewhere else as well in sharedprefereces rather than this only activity
-                editor.putString("ref_code", ref_code);
-                editor.putString("user_name", user_name);
-                editor.putString("user_no", user_no);
-                editor.commit();
+
                 try {
                     tv_username.setText(user_name);
                     tv_username_no.setText(user_no);

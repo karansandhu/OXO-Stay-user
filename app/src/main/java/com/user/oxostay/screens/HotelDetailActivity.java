@@ -48,7 +48,7 @@ import java.util.Locale;
 
 public class HotelDetailActivity extends AppCompatActivity {
 
-    String hotel_name,hotel_desc,hotel_rating,hotel_imgs,hotel_rate,hotel_id,hotel_address,is_liked;
+    String hotel_name,hotel_desc,hotel_rating,hotel_imgs,hotel_rate,hotel_id,hotel_address,is_liked,selected_time;
     ImageView iv_banner,iv_map,iv_like;
     TextView tv_hotelname,tv_hoteladress,tv_hotelrating,tv_hotelrate,tv_hoteldesc,tv_hoteldirect;
     RatingBar ratingbar;
@@ -77,8 +77,6 @@ public class HotelDetailActivity extends AppCompatActivity {
     }
 
     public void initView(){
-
-
 
         baseActivity = new BaseActivity();
         baseActivity.showLoader(this);
@@ -114,6 +112,7 @@ public class HotelDetailActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         user_name = sharedpreferences.getString("user_name","");
+        selected_time = intent.getStringExtra("time");
         hotel_id = intent.getStringExtra("hotel_id");
         hotel_pic_list = intent.getStringArrayListExtra("images_array");
         hotel_address = intent.getStringExtra("hotel_address");
@@ -146,7 +145,10 @@ public class HotelDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent1 = new Intent(HotelDetailActivity.this,PaymentActivity.class);
+                Intent intent1 = new Intent(HotelDetailActivity.this,ReviewActivity.class);
+                intent.putExtra("time",selected_time);
+                intent.putExtra("email",selected_time);
+                intent.putExtra("email",selected_time);
                 startActivity(intent1);
             }
         });
