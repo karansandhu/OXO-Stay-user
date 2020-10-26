@@ -92,7 +92,7 @@
             android:textSize="18sp"
             android:layout_marginLeft="@dimen/_15sdp"
             android:layout_marginTop="@dimen/_25sdp"
-            android:fontFamily="@font/roboto_bold"/>
+            android:fontFamily="@font/roboto_regular"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -103,7 +103,7 @@
             <RelativeLayout
                 android:id="@+id/rl_gpay"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_60sdp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -134,22 +134,21 @@
                     android:layout_toRightOf="@+id/iv_googlepay"
                     android:layout_gravity="center"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/roboto_bold"/>
 
                 <LinearLayout
                     android:id="@+id/ll_highlighter"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_22sdp"
-                    android:layout_below="@+id/iv_googlepay"
+                    android:layout_alignParentBottom="true"
                     android:background="@color/colorAppYellow"/>
 
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_paytm"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_60sdp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -179,22 +178,21 @@
                     android:layout_toRightOf="@+id/iv_paytm"
                     android:layout_gravity="center"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/roboto_bold"/>
 
                 <LinearLayout
                     android:id="@+id/ll_highlighter2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_22sdp"
-                    android:layout_below="@+id/iv_paytm"
+                    android:layout_alignParentBottom="true"
                     android:background="@color/colorAppYellow"/>
 
             </RelativeLayout>
             <RelativeLayout
                 android:id="@+id/rl_cash"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/_60sdp"
                 android:orientation="horizontal">
 
                 <RadioButton
@@ -226,15 +224,14 @@
                     android:layout_toRightOf="@+id/iv_cash"
                     android:layout_gravity="center"
                     android:textColor="@color/colorWhite"
-                    android:textSize="16sp"
+                    android:textSize="20sp"
                     android:fontFamily="@font/roboto_bold"/>
 
                 <LinearLayout
                     android:id="@+id/ll_highlighter3"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
-                    android:layout_marginTop="@dimen/_22sdp"
-                    android:layout_below="@+id/iv_cash"
+                    android:layout_alignParentBottom="true"
                     android:background="@color/colorAppYellow"/>
 
             </RelativeLayout>
@@ -280,6 +277,7 @@
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_60sdp"
             android:layout_alignParentBottom="true"
             android:background="@color/colorAppYellow">
@@ -299,6 +297,7 @@
             android:id="@+id/imageView"
             android:layout_width="128dp"
             android:layout_height="128dp"
+            android:visibility="gone"
             android:layout_gravity="center" />
 
         <TextView
@@ -306,6 +305,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:layout_marginTop="16dp"
             android:text="Click above button to Pay"
             android:textColor="@color/colorWhite"

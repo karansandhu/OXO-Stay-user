@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".screens.ReviewActivity"></activity>
+        <activity android:name=".screens.ForgotActivity"></activity>
+        <activity android:name=".screens.ReviewActivity" />
         <activity android:name=".screens.PaymentActivity" />
         <activity android:name=".screens.ImageViewActivity" />
         <!--
@@ -60,7 +61,8 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <uses-permission android:name="android.permission.INTERNET" />
+
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
 </manifest>

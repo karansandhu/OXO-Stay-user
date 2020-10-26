@@ -92,9 +92,9 @@
                     android:text="@string/three_hour"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_thin"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp"/>
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_3_hr"
@@ -103,9 +103,9 @@
                     android:text="699"
                     android:layout_below="@+id/tv_hour"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/colorBlack"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
             </RelativeLayout>
 
@@ -123,9 +123,9 @@
                     android:text="@string/six_hour"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_thin"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp"/>
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_6_hr"
@@ -134,9 +134,9 @@
                     android:text="1100"
                     android:layout_below="@+id/tv_hour_6"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/colorBlack"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
             </RelativeLayout>
 
@@ -155,9 +155,9 @@
                     android:text="@string/twelve_hour"
                     android:layout_marginTop="@dimen/_2sdp"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_thin"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="10sp"/>
+                    android:fontFamily="@font/roboto_regular"
+                    android:textColor="@color/colorDarkGrey"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/tv_12_hr"
@@ -166,9 +166,9 @@
                     android:text="1700"
                     android:layout_below="@+id/tv_hour_12"
                     android:layout_centerHorizontal="true"
-                    android:fontFamily="@font/roboto_regular"
+                    android:fontFamily="@font/roboto_bold"
                     android:textColor="@color/colorBlack"
-                    android:textSize="12sp"/>
+                    android:textSize="14sp"/>
 
             </RelativeLayout>
 

@@ -9,26 +9,34 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.philliphsu.bottomsheetpickers.time.BottomSheetTimePickerDialog;
 import com.philliphsu.bottomsheetpickers.time.grid.GridTimePickerDialog;
 import com.user.oxostay.R;
+import com.user.oxostay.adapter.TimeAdapter;
+import com.user.oxostay.utils.RecyclerViewClickListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 
-public class SearchActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener {
+public class SearchActivity extends AppCompatActivity implements BottomSheetTimePickerDialog.OnTimeSetListener, RecyclerViewClickListener {
 
     private static final String TAG = "SearchActivity";
     private TextView tv_another_day, tv_time, tv_today;
@@ -36,6 +44,10 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
     private ImageView iv_back, iv_edit;
     private EditText et_city_name;
     private String location, location_id, today_date, final_date;
+    private TimeAdapter timeAdapter;
+    private RecyclerView recyclerViewTime;
+    private RecyclerViewClickListener recyclerViewClickListener;
+    private ArrayList<String> timeList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +58,8 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
     }
 
     public void initView() {
+
+        timeList = new ArrayList<>();
         Intent intent = getIntent();
         location = intent.getStringExtra("location");
         location_id = intent.getStringExtra("location_id");
@@ -65,7 +79,14 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
         rl_search_now = (RelativeLayout) findViewById(R.id.rl_search_now);
         et_city_name.setText(location);
         rl_time_picker = (RelativeLayout) findViewById(R.id.rl_time_picker);
+        recyclerViewTime = (RecyclerView) findViewById(R.id.recyclerViewTime);
 
+        recyclerViewTime.setHasFixedSize(true);
+        recyclerViewTime.setLayoutManager(new GridLayoutManager(this, 3, GridLayout.VERTICAL, false));
+        PutTimes();
+        timeAdapter = new TimeAdapter(timeList,SearchActivity.this,this);
+
+        recyclerViewTime.setAdapter(timeAdapter);
         iv_edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,11 +112,15 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
         rl_search_now.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SearchActivity.this, HotelListActivity.class);
-                intent.putExtra("date", final_date);
-                intent.putExtra("location", location);
-                intent.putExtra("time", tv_time.getText().toString());
-                startActivity(intent);
+                if (final_date != null && location != null) {
+                    Intent intent = new Intent(SearchActivity.this, HotelListActivity.class);
+                    intent.putExtra("date", final_date);
+                    intent.putExtra("location", location);
+                    intent.putExtra("time", tv_time.getText().toString());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(SearchActivity.this, "Please select all the values first", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -169,6 +194,20 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
 
     }
 
+    public void PutTimes(){
+
+        timeList.add("01:00");
+        timeList.add("02:00");
+        timeList.add("03:00");
+        timeList.add("04:00");
+        timeList.add("05:00");
+        timeList.add("06:00");
+        timeList.add("07:00");
+        timeList.add("08:00");
+        timeList.add("09:00");
+        timeList.add("10:00");
+        timeList.add("11:00");
+    }
 
     @Override
     public void onTimeSet(ViewGroup viewGroup, int hourOfDay, int minute) {
@@ -177,6 +216,13 @@ public class SearchActivity extends AppCompatActivity implements BottomSheetTime
         cal.set(Calendar.MINUTE, minute);
         tv_time.setText(DateFormat.getTimeFormat(this).format(cal.getTime()));
         Log.e(TAG, "onTimeSet: "+cal.getTime());
+
 //        Toast.makeText(this, "Time set: " + DateFormat.getTimeFormat(this).format(cal.getTime()), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void recyclerViewListClicked(int position) {
+        Log.e("checkOnCLick",">>" + position);
+
     }
 }

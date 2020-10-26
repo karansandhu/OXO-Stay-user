@@ -45,10 +45,11 @@ public class FavouriteFragment extends Fragment {
     ArrayList<String> hotelList,hotelListIdsNew;
     EditText et_fav_search;
     FirebaseDatabase database;
-    TextView tv_fav_result;
+    TextView tv_fav_result,tv_zero_results;
     DatabaseReference ref,hotelRef;
     private FirebaseAuth mAuth;
     ArrayList<ApprovedModel> approvedModels;
+//    private ArrayList<String> hotelListIds;
     ArrayList<String> citiesList;
     BaseActivity baseActivity;
 
@@ -74,6 +75,7 @@ public class FavouriteFragment extends Fragment {
         recyclerView_fav = (RecyclerView) view.findViewById(R.id.recyclerView_fav);
         et_fav_search = (EditText) view.findViewById(R.id.et_fav_search);
         tv_fav_result = (TextView) view.findViewById(R.id.tv_fav_result);
+        tv_zero_results = (TextView) view.findViewById(R.id.tv_zero_results);
         hotelList = new ArrayList<>();
         hotelListIdsNew = new ArrayList<>();
         hotelListIds = new ArrayList<>();
@@ -83,55 +85,55 @@ public class FavouriteFragment extends Fragment {
         approvedModels = new ArrayList<>();
         recyclerView_fav.setHasFixedSize(true);
         recyclerView_fav.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView_fav.setAdapter(favouriteAdapter);
+//        recyclerView_fav.setAdapter(favouriteAdapter);
 
 
         rl_Search = (RelativeLayout) view.findViewById(R.id.rl_Search);
 
-        et_fav_search.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-
-                DatabaseReference dateRef = rootRef.child("oxostaypartner").child("hotelsapproved");
-                Query query = dateRef.orderByChild("hotel_name").startAt(charSequence.toString()).endAt(charSequence.toString() + "\uf8ff");
-                Log.e("checkQuery",">>" + dateRef);
-
-                query.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        approvedModels.clear();
-                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-
-                            ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
-                            approvedModels.add(upload);
-                            Log.e("checkQuery","11>>" + postSnapshot.toString());
-                        }
-                        favouriteAdapter = new FavouriteAdapter(approvedModels,getActivity());
-
-                        Log.e("checkQuery","final>>" + approvedModels.toString());
-                        recyclerView_fav.setAdapter(favouriteAdapter);
-                        favouriteAdapter.notifyDataSetChanged();
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+//        et_fav_search.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
+//
+//                DatabaseReference dateRef = rootRef.child("oxostaypartner").child("hotelsapproved");
+//                Query query = dateRef.orderByChild("hotel_name").startAt(charSequence.toString()).endAt(charSequence.toString() + "\uf8ff");
+//                Log.e("checkQuery",">>" + dateRef);
+//
+//                query.addValueEventListener(new ValueEventListener() {
+//                    @Override
+//                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                        approvedModels.clear();
+//                        for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
+//
+//                            ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
+//                            approvedModels.add(upload);
+//                            Log.e("checkQuery","11>>" + postSnapshot.toString());
+//                        }
+//                        favouriteAdapter = new FavouriteAdapter(approvedModels,getActivity());
+//
+//                        Log.e("checkQuery","final>>" + approvedModels.toString());
+//                        recyclerView_fav.setAdapter(favouriteAdapter);
+//                        favouriteAdapter.notifyDataSetChanged();
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//                    }
+//                });
+//
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable editable) {
+//
+//            }
+//        });
 
     }
 
@@ -169,7 +171,13 @@ public class FavouriteFragment extends Fragment {
                     }
 
                     Log.e("checkQuery","11Favourites>>" + hotelListIdsNew.toString());
-                    getDataFirebase();
+                    if (hotelListIdsNew.size() == 0){
+                        baseActivity.dismissLoader();
+                        tv_zero_results.setVisibility(View.VISIBLE);
+                    }else{
+                        tv_zero_results.setVisibility(View.GONE);
+                        getDataFirebase();
+                    }
                 }
 
                 @Override
@@ -199,11 +207,17 @@ public class FavouriteFragment extends Fragment {
                                 Log.e("checkforloop","22>>" + postSnapshot.getKey());
                                 ApprovedModel upload = postSnapshot.getValue(ApprovedModel.class);
                                 approvedModels.add(upload);
+//                                approvedModels.add(upload);
                             }
                         }
 
-                        favouriteAdapter = new FavouriteAdapter(approvedModels,getActivity());
+                        favouriteAdapter = new FavouriteAdapter(hotelListIdsNew,approvedModels,getActivity());
                         tv_fav_result.setText("Showing " + approvedModels.size() + " results");
+                        if (approvedModels.size() == 0){
+                            tv_zero_results.setVisibility(View.VISIBLE);
+                        }else{
+                            tv_zero_results.setVisibility(View.GONE);
+                        }
                         Log.e("checkQueryNew","final>>" + approvedModels.toString());
                         recyclerView_fav.setAdapter(favouriteAdapter);
                         favouriteAdapter.notifyDataSetChanged();

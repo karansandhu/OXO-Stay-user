@@ -48,7 +48,7 @@ import java.util.Locale;
 
 public class HotelDetailActivity extends AppCompatActivity {
 
-    String hotel_name,hotel_desc,hotel_rating,hotel_imgs,hotel_rate,hotel_id,hotel_address,is_liked,selected_time;
+    String hotel_name,hotel_desc,hotel_rating,check_in_time,hotel_rate,hotel_id,hotel_address,is_liked,selected_time,hotel_email,hotel_phnno;
     ImageView iv_banner,iv_map,iv_like;
     TextView tv_hotelname,tv_hoteladress,tv_hotelrating,tv_hotelrate,tv_hoteldesc,tv_hoteldirect;
     RatingBar ratingbar;
@@ -66,7 +66,7 @@ public class HotelDetailActivity extends AppCompatActivity {
     BaseActivity baseActivity;
     private FirebaseAuth mAuth;
     Boolean likeChecker = false;
-    String user_name;
+    String user_name,date_selected,preAct;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +112,19 @@ public class HotelDetailActivity extends AppCompatActivity {
         final Intent intent = getIntent();
         SharedPreferences sharedpreferences = getSharedPreferences("MyPREFERENCES", Context.MODE_PRIVATE);
         user_name = sharedpreferences.getString("user_name","");
+        try {
+            preAct = intent.getStringExtra("preAct");
+            if (preAct.equals("Fav")){
+                iv_like.setImageResource(R.drawable.ic_heart_shape_silhouette);
+            }else if (preAct.equals("Hotel")){
+
+            }
+        }catch (Exception e){
+
+        }
+        date_selected = intent.getStringExtra("date_selected");
+        hotel_email = intent.getStringExtra("hotel_email");
+        hotel_phnno = intent.getStringExtra("hotel_phnno");
         selected_time = intent.getStringExtra("time");
         hotel_id = intent.getStringExtra("hotel_id");
         hotel_pic_list = intent.getStringArrayListExtra("images_array");
@@ -120,9 +133,10 @@ public class HotelDetailActivity extends AppCompatActivity {
         hotel_desc = intent.getStringExtra("hotel_desc");
         hotel_rating = intent.getStringExtra("hotel_rating");
         hotel_rate = intent.getStringExtra("hotel_rate");
+        check_in_time = intent.getStringExtra("check_in_time");
 //        is_liked = intent.getStringExtra("is_liked");
         hotel_amenities_list = intent.getStringArrayListExtra("hotel_amenities");
-        Log.e("checkNameo",">HotelDetailActivity>" + hotel_id + ">>" + is_liked);
+        Log.e("checkNameo",">HotelDetailActivity>" + date_selected + ">>" + is_liked);
 //        String[] imageList = hotel_imgs.split(",");
         setLikebutton(mAuth.getCurrentUser().getUid());
         iv_like.setOnClickListener(new View.OnClickListener() {
@@ -146,9 +160,18 @@ public class HotelDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 Intent intent1 = new Intent(HotelDetailActivity.this,ReviewActivity.class);
-                intent.putExtra("time",selected_time);
-                intent.putExtra("email",selected_time);
-                intent.putExtra("email",selected_time);
+                intent1.putExtra("time",selected_time);
+                intent1.putExtra("hotel_name",hotel_name);
+                intent1.putExtra("check_in_time",check_in_time);
+                intent1.putExtra("check_in_date",date_selected);
+                intent1.putExtra("hotel_address",hotel_address);
+                intent1.putExtra("hotel_email",hotel_email);
+                intent1.putExtra("hotel_phnno",hotel_phnno);
+                intent1.putExtra("hotel_id",hotel_id);
+                intent1.putExtra("hotel_room",selected_time);
+                intent1.putExtra("hotel_rate",hotel_rate);
+                Log.e("checkFinalData","detail>>" + hotel_rate + ">" + hotel_name + ">"
+                        + hotel_address + ">" + hotel_email + ">" + hotel_phnno + ">" + hotel_id);
                 startActivity(intent1);
             }
         });

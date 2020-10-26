@@ -94,6 +94,7 @@
             android:paddingLeft="@dimen/_5sdp"
             android:fontFamily="@font/roboto_bold"
             android:layout_marginTop="@dimen/_20sdp"
+            android:visibility="gone"
             android:layout_gravity="center"
             android:gravity="center"/>
 
@@ -103,6 +104,7 @@
             android:layout_height="@dimen/_80sdp"
             android:layout_below="@+id/tv_works"
             android:orientation="horizontal"
+            android:visibility="gone"
             android:layout_marginTop="@dimen/_5sdp"
             android:background="@drawable/home_screen_white_bg">
             
@@ -208,7 +210,6 @@
             android:layout_below="@+id/tv_guidelines"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_80sdp"
-            android:src="@drawable/covid_banner"
             android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/_4sdp"/>
 
@@ -231,7 +232,6 @@
             android:layout_below="@+id/tv_latest_offer"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_80sdp"
-            android:src="@drawable/latest_offers"
             android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/_4sdp"/>
 
@@ -254,7 +254,6 @@
             android:layout_below="@+id/tv_refer_earn"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_80sdp"
-            android:src="@drawable/refer_and_earn"
             android:scaleType="centerCrop"
             android:layout_marginTop="@dimen/_4sdp"/>
             </RelativeLayout>

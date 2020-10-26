@@ -29,7 +29,7 @@ public class SignupActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String mVerificationId;
     String status;
-    EditText et_mobile,et_name,enter_ref_code;
+    EditText et_mobile,et_name,enter_ref_code,enter_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +43,7 @@ public class SignupActivity extends AppCompatActivity {
         baseActivity = new BaseActivity();
 //        baseActivity.dismissLoader();
         rl_signup = (RelativeLayout) findViewById(R.id.rl_signup);
+        enter_email = (EditText) findViewById(R.id.enter_email);
         et_mobile = (EditText) findViewById(R.id.et_mobile);
         et_name = (EditText) findViewById(R.id.et_name);
         enter_ref_code = (EditText) findViewById(R.id.enter_ref_code);
@@ -112,6 +113,7 @@ public class SignupActivity extends AppCompatActivity {
                 intent.putExtra("mVerificationId",mVerificationId);
                 intent.putExtra("code",code);
                 intent.putExtra("name",et_name.getText().toString());
+                intent.putExtra("email",enter_email.getText().toString());
                 intent.putExtra("act","signup");
 //                if (!enter_ref_code.getText().toString().equals("")){
                     intent.putExtra("user_ref_code",enter_ref_code.getText().toString());

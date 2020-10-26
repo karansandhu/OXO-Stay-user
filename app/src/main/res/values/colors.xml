@@ -7,6 +7,7 @@
     <color name="colorAppLightYellow">#FFDC61</color>
     <color name="colorBlack">#000000</color>
     <color name="colorLightGrey">#C4C4C4</color>
+    <color name="colorLlightGrey">#D3D3D3</color>
     <color name="colorDarkGrey">#191919</color>
     <color name="colorTransLightGrey">#61939393</color>
     <color name="colorTransDarkGrey">#61373737</color>

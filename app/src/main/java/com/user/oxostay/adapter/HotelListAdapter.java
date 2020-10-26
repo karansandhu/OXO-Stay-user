@@ -24,9 +24,12 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
     private ArrayList<ApprovedModel> listdata;
     private ArrayList<String> listdataIds;
     private Context context;
+    private String Intentdate,time;
 
     // RecyclerView recyclerView;
-    public HotelListAdapter(ArrayList<ApprovedModel> listdata, ArrayList<String> listdataIds,Context context) {
+    public HotelListAdapter(String time,String Intentdate,ArrayList<ApprovedModel> listdata, ArrayList<String> listdataIds,Context context) {
+        this.time = time;
+        this.Intentdate = Intentdate;
         this.listdata = listdata;
         this.listdataIds = listdataIds;
         this.context = context;
@@ -50,12 +53,14 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
         holder.tv_12_hr.setText(approvedModel.getRoom_rate_12_hour());
         Glide.with(context).load(approvedModel.getHotel_images().get(0)).into(holder.iv_hotel_pic);
 //        Glide.with(context).load(R.drawable.hotel_image_one).into(holder.iv_hotel_pic);
-        holder.tv_3_hr.setOnClickListener(new View.OnClickListener() {
+        holder.rl_three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HotelDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("time","3 Hours");
+                intent.putExtra("preAct","Hotel");
+                intent.putExtra("check_in_time",time);
                 intent.putExtra("images_array",approvedModel.getHotel_images());
                 intent.putExtra("hotel_name",approvedModel.getHotel_name());
                 intent.putExtra("hotel_address",approvedModel.getHotel_address());
@@ -63,16 +68,21 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
                 intent.putExtra("hotel_rate",approvedModel.getRoom_rate_3_hour());
                 intent.putExtra("hotel_amenities",approvedModel.getAmenities());
                 intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
+                intent.putExtra("hotel_email",approvedModel.getHotel_email());
+                intent.putExtra("hotel_phnno",approvedModel.getPhNumber());
                 intent.putExtra("hotel_id",listdataIds.get(position));
+                intent.putExtra("date_selected",Intentdate);
                 context.startActivity(intent);
             }
         });
-        holder.tv_6_hr.setOnClickListener(new View.OnClickListener() {
+        holder.rl_six.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HotelDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("time","6 Hours");
+                intent.putExtra("preAct","Hotel");
+                intent.putExtra("check_in_time",time);
                 intent.putExtra("images_array",approvedModel.getHotel_images());
                 intent.putExtra("hotel_name",approvedModel.getHotel_name());
                 intent.putExtra("hotel_address",approvedModel.getHotel_address());
@@ -81,15 +91,18 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
                 intent.putExtra("hotel_amenities",approvedModel.getAmenities());
                 intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
                 intent.putExtra("hotel_id",listdataIds.get(position));
+                intent.putExtra("date_selected",Intentdate);
                 context.startActivity(intent);
             }
         });
-        holder.tv_12_hr.setOnClickListener(new View.OnClickListener() {
+        holder.rl_twelve.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, HotelDetailActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra("time","12 Hours");
+                intent.putExtra("preAct","Hotel");
+                intent.putExtra("check_in_time",time);
                 intent.putExtra("images_array",approvedModel.getHotel_images());
                 intent.putExtra("hotel_name",approvedModel.getHotel_name());
                 intent.putExtra("hotel_address",approvedModel.getHotel_address());
@@ -98,6 +111,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
                 intent.putExtra("hotel_amenities",approvedModel.getAmenities());
                 intent.putExtra("hotel_desc",approvedModel.getHotel_desc());
                 intent.putExtra("hotel_id",listdataIds.get(position));
+                intent.putExtra("date_selected",Intentdate);
                 context.startActivity(intent);
             }
         });
@@ -112,7 +126,7 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public ImageView iv_hotel_pic;
         public TextView tv_hotel_name,tv_3_hr,tv_6_hr,tv_12_hr,tv_address;
-        public RelativeLayout rl_three,rl_prices;
+        public RelativeLayout rl_three,rl_prices,rl_twelve,rl_six;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -124,6 +138,8 @@ public class HotelListAdapter extends RecyclerView.Adapter<HotelListAdapter.View
             this.tv_6_hr = (TextView) itemView.findViewById(R.id.tv_6_hr);
             this.tv_12_hr = (TextView) itemView.findViewById(R.id.tv_12_hr);
             this.rl_three = (RelativeLayout) itemView.findViewById(R.id.rl_three);
+            this.rl_twelve = (RelativeLayout) itemView.findViewById(R.id.rl_twelve);
+            this.rl_six = (RelativeLayout) itemView.findViewById(R.id.rl_six);
             this.rl_prices = (RelativeLayout) itemView.findViewById(R.id.rl_prices);
         }
     }

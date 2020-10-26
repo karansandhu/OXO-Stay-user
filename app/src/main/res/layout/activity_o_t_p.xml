@@ -147,6 +147,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/colorBlack"
                     android:textSize="22sp"
+                    android:paddingBottom="@dimen/_8sdp"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/roboto_bold"
                     android:text="@string/login" />

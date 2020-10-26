@@ -114,12 +114,11 @@
 
             <ImageView
                 android:id="@+id/iv_edit"
-                android:layout_width="@dimen/_22sdp"
-                android:layout_height="@dimen/_22sdp"
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
                 android:layout_gravity="center"
-                android:paddingBottom="@dimen/_7sdp"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_14sdp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_5sdp"
                 android:src="@drawable/ic_edit"/>
@@ -333,6 +332,19 @@
 
         </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_time_picker"
+            android:orientation="horizontal">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewTime"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
         <RelativeLayout
             android:id="@+id/rl_search_now"
             android:layout_width="match_parent"
@@ -351,7 +363,6 @@
                 android:text="@string/search" />
 
         </RelativeLayout>
-
 
         </RelativeLayout>
     </LinearLayout>

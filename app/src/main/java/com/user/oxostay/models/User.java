@@ -2,16 +2,17 @@ package com.user.oxostay.models;
 
 public class User {
 
-    String name,mobile_no,profile_pic,ref_code;
+    String name,mobile_no,profile_pic,ref_code,email;
 
     public User(){
 
     }
 
-    public User(String name, String mobile_no, String profile_pic, String ref_code) {
+    public User(String name, String mobile_no, String profile_pic, String email, String ref_code) {
         this.name = name;
         this.mobile_no = mobile_no;
         this.profile_pic = profile_pic;
+        this.email = email;
         this.ref_code = ref_code;
     }
 
@@ -45,5 +46,13 @@ public class User {
 
     public void setMobile_no(String mobile_no) {
         this.mobile_no = mobile_no;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

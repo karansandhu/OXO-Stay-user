@@ -44,9 +44,10 @@ public class HotelListActivity extends AppCompatActivity {
     private String time,location,Intentdate;
     private FirebaseDatabase database;
     private DatabaseReference ref;
-    private TextView tv_result;
+    private TextView tv_result,tv_zero_results;
     private String monthOfTheYear;
     private ArrayList<String> hotelListIds;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,12 +68,14 @@ public class HotelListActivity extends AppCompatActivity {
             Log.e(TAG, "initView: "+time);
             Intentdate = intent.getStringExtra("date");
             location = intent.getStringExtra("location");
+            Log.e("checkTime",">>" + time);
 
         }
         hotelListIds = new ArrayList<>();
         recyclerView_hotels = (RecyclerView) findViewById(R.id.recyclerView_hotels);
         et_location = (EditText) findViewById(R.id.et_location);
         tv_result = (TextView) findViewById(R.id.tv_result);
+        tv_zero_results = (TextView) findViewById(R.id.tv_zero_results);
         recyclerView_hotels.setHasFixedSize(true);
         recyclerView_hotels.setLayoutManager(new LinearLayoutManager(this));
         iv_back = (ImageView) findViewById(R.id.iv_back);
@@ -107,10 +110,15 @@ public class HotelListActivity extends AppCompatActivity {
                             hotelListIds.add(postSnapshot.getKey());
                             Log.e("checkQuery","11>>" + postSnapshot.toString());
                         }
-                        hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,getApplicationContext());
+                        hotelListAdapter = new HotelListAdapter(time,Intentdate,hotelList,hotelListIds,getApplicationContext());
 
                         Log.e("checkQuery","final>>" + hotelList.toString());
                         tv_result.setText("Showing " + hotelList.size() + " results");
+                        if (hotelList.size() == 0){
+                            tv_zero_results.setVisibility(View.VISIBLE);
+                        }else{
+                            tv_zero_results.setVisibility(View.GONE);
+                        }
                         recyclerView_hotels.setAdapter(hotelListAdapter);
                         hotelListAdapter.notifyDataSetChanged();
                     }
@@ -128,7 +136,7 @@ public class HotelListActivity extends AppCompatActivity {
 
             }
         });
-        hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,this);
+        hotelListAdapter = new HotelListAdapter(time,Intentdate,hotelList,hotelListIds,this);
 
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -198,7 +206,7 @@ public class HotelListActivity extends AppCompatActivity {
                         }
 
                         }
-                    hotelListAdapter = new HotelListAdapter(hotelList,hotelListIds,getApplicationContext());
+                    hotelListAdapter = new HotelListAdapter(time,Intentdate,hotelList,hotelListIds,getApplicationContext());
                     tv_result.setText("Showing " + hotelList.size() + " results");
                     recyclerView_hotels.setAdapter(hotelListAdapter);
                     hotelListAdapter.notifyDataSetChanged();

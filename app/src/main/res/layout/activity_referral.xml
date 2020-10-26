@@ -35,7 +35,6 @@
                 android:id="@+id/iv_login_head"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_220sdp"
-                android:src="@drawable/referral_img"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_marginRight="@dimen/_10sdp"

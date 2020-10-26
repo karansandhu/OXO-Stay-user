@@ -89,6 +89,20 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/_5sdp"/>
 
+        <TextView
+            android:id="@+id/tv_zero_results"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Hotels Found"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:visibility="gone"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/roboto_bold"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_5sdp"/>
+
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_hotels"
             android:layout_width="match_parent"

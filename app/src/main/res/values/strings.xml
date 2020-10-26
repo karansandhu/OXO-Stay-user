@@ -14,7 +14,10 @@
     <string name="cancellation_policy">Cancellation policy</string>
     <string name="signup_now">Signup now</string>
     <string name="favourite">Favourites</string>
+    <string name="forgot_pass">Forgot Password</string>
+    <string name="forgot_pass_text">Forgot your password? Don\'t worry enter your email below we will send you a link from where you can create a new password. Happy Booking.</string>
     <string name="faq">FAQs</string>
+    <string name="enter_forgot_email">Enter your Email - </string>
     <string name="my_booking">My Booking</string>
     <string name="my_profile">My Profile</string>
     <string name="how_it_works">How it works</string>
@@ -27,6 +30,7 @@
     <string name="dont_have_acc">Don’t have an account? Signup</string>
     <string name="already_have_acc">Already have an account? Login</string>
     <string name="login">Login</string>
+    <string name="forgot_pass_login">Forgot Password? Set new a one.</string>
     <string name="am">AM</string>
     <string name="paytm">Paytm</string>
     <string name="upi">UPI</string>
@@ -64,6 +68,7 @@
     <string name="share_using">Skip</string>
     <string name="next">Next</string>
     <string name="enter_ref_code">Referral Code</string>
+    <string name="enter_email">Email</string>
     <string name="how_to_avail">How to Avail</string>
     <string name="enviroment_sanitisation">Environment Sanitization: </string>
     <string name="staff_training">Staff Training</string>
@@ -74,7 +79,6 @@
     <string name="program_line_one">\u25CF  Refer a friend and get 500 OXOStay credits to your account</string>
     <string name="program_line_two">\u25CF  OXOStay Credits will be valid for 90 days</string>
     <string name="program_line_three">\u25CF  Referral credits can only be used on Mobile App</string>
-    \
     <string name="house_keeping">\u25CF  House-keeping and service staff to wear masks and gloves at all times</string>
     <string name="staff_train">\u25CF  Staff is trained at least twice a week on social distancing, hand hygiene and thermal temperature checks</string>
     <string name="staff_temp">\u25CF  Temperature checks for staff twice a day</string>
@@ -99,6 +103,11 @@
     <string name="Another_day">Another Day</string>
     <string name="where">Where?</string>
     <string name="when">When?</string>
+    <string name="edit">Edit</string>
+    <string name="rooms">Rooms</string>
+    <string name="send_mail">Send Mail</string>
+    <string name="booking_id">Booking ID</string>
+    <string name="booked">Booked</string>
     <string name="time_arrival">Time of Arrival?</string>
     <string name="search_hotel">Search Hotel</string>
     <string name="search">Search</string>
